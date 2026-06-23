@@ -557,9 +557,23 @@ function initNavigation() {
                         }
                     }
                 }
-            });
         });
     }
+
+    // Nav links with data-categoria → set filter and scroll to finder
+    document.querySelectorAll('a[data-categoria]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const cat = this.getAttribute('data-categoria');
+            const selectCategoria = document.getElementById('filter-categoria');
+            if (selectCategoria) {
+                selectCategoria.value = cat;
+                selectCategoria.dispatchEvent(new Event('change'));
+            }
+            const finder = document.getElementById('finder');
+            if (finder) finder.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
 }
 
 /**
