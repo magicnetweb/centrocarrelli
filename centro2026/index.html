@@ -29,11 +29,10 @@
 <span></span>
 </button>
 <ul class="nav-menu" id="nav-menu">
-<li class="nav-item"><a href="#promozioni">Promozioni</a></li>
-<li class="nav-item"><a href="https://www.centrocarrelli.net/carrelli-frontali/" rel="noopener" target="_blank">Carrelli Frontali</a></li>
-<li class="nav-item"><a href="https://www.centrocarrelli.net/carrelli-magazzino/" rel="noopener" target="_blank">Carrelli Magazzino</a></li>
-<li class="nav-item"><a href="https://www.centrocarrelli.net/transpallet/" rel="noopener" target="_blank">Transpallet</a></li>
-<li class="nav-item"><a href="https://www.centrocarrelli.net/occasioni/" rel="noopener" target="_blank">Occasioni</a></li>
+<li class="nav-item"><a href="https://www.centrocarrelli.net/carrelli-frontali/" rel="noopener" target="_blank">Carrelli Frontali (44)</a></li>
+<li class="nav-item"><a href="https://www.centrocarrelli.net/carrelli-magazzino/" rel="noopener" target="_blank">Carrelli Magazzino (27)</a></li>
+<li class="nav-item"><a href="https://www.centrocarrelli.net/transpallet/" rel="noopener" target="_blank">Transpallet (27)</a></li>
+<li class="nav-item"><a href="https://www.centrocarrelli.net/occasioni/" rel="noopener" target="_blank">Occasioni (7)</a></li>
 <li class="nav-item"><a href="https://www.centrocarrelli.net/noleggio-carrelli-elevatori/" rel="noopener" target="_blank">Noleggio</a></li>
 <li class="nav-item"><a href="https://www.centrocarrelli.net/azienda/" rel="noopener" target="_blank">Azienda</a></li>
 <li class="nav-item"><a href="https://www.centrocarrelli.net/assistenza-manutenzione-muletti/" rel="noopener" target="_blank">Assistenza</a></li>
@@ -261,14 +260,18 @@
 </svg>
 <h3 style="color:#FFF; font-family:'Archivo',sans-serif; font-weight:800; font-size:1.2rem; text-transform:uppercase; letter-spacing:1px; margin:0; border-bottom: none; padding-bottom: 0;">CERCA CARRELLI</h3>
 </div>
+<div class="filter-group" style="margin-bottom: 16px;">
+<label class="screen-reader-text" for="filter-search">Ricerca libera</label>
+<input type="text" id="filter-search" class="finder-input" placeholder="🔍 Cerca modello, marca..." style="width:100%; box-sizing:border-box;" autocomplete="off"/>
+</div>
 <div class="filter-group" style="margin-bottom: 12px;">
 <label class="screen-reader-text" for="filter-categoria">Categoria</label>
 <select class="finder-select" id="filter-categoria" name="categoria">
-<option value="">Tutti i prodotti</option>
-<option value="frontali">Carrelli Frontali</option>
-<option value="magazzino">Carrelli magazzino</option>
-<option value="transpallet">Transpallet</option>
-<option value="occasioni">Occasioni</option>
+<option value="">Tutti i prodotti (98)</option>
+<option value="frontali">Carrelli Frontali (44)</option>
+<option value="magazzino">Carrelli magazzino (27)</option>
+<option value="transpallet">Transpallet (27)</option>
+<option value="occasioni">Occasioni (7)</option>
 </select>
 </div>
 <div class="filter-group" style="margin-bottom: 12px;">
@@ -345,13 +348,13 @@
 <option value="CARER">CARER</option>
 </select>
 </div>
-<button id="btn-finder-cerca">Cerca</button>
+<button type="button" id="btn-finder-cerca">Cerca</button>
 </div>
 <!-- Results Area -->
 <div class="finder-results">
 <div class="results-header">
 <span class="results-count" id="results-count">Carrelli trovati</span>
-<button class="btn btn-secondary" onclick="resetFilters()" style="padding: 6px 12px; font-size: 0.8rem; min-height: auto;">Reset Filtri</button>
+<button type="button" class="btn btn-secondary" onclick="resetFilters()" style="padding: 6px 12px; font-size: 0.8rem; min-height: auto;">Reset Filtri</button>
 </div>
 <div class="results-grid" id="results-grid">
 <!-- Dynamically filled by app.js -->
