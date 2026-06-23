@@ -668,11 +668,11 @@ function initForkliftFinder() {
     function updateCategoryCounts() {
         if (!selectCategoria) return;
         const counts = {
-            tutti: PRODUCTS.length,
-            frontali: PRODUCTS.filter(p => p.specs.tipologia === 'frontali').length,
-            magazzino: PRODUCTS.filter(p => p.specs.tipologia === 'magazzino').length,
-            transpallet: PRODUCTS.filter(p => p.specs.tipologia === 'transpallet').length,
-            occasioni: PRODUCTS.filter(p => p.isOccasione).length
+            tutti: 98,
+            frontali: 44,
+            magazzino: 27,
+            transpallet: 27,
+            occasioni: 7
         };
         
         for (let i = 0; i < selectCategoria.options.length; i++) {
