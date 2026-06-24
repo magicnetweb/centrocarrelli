@@ -795,6 +795,15 @@ function initForkliftFinder() {
         // Check if any filters are active
         const hasActiveFilters = !!(cat || anno || alim || portata || sollevamento || marca || searchQuery);
 
+        // Skip initial render if static cards are already present and no filters are active
+        if (!hasActiveFilters && resultsGrid.children.length > 0 && resultsGrid.querySelector('.product-card')) {
+            console.log('[Finder] Skipping initial render: grid already has pre-rendered static cards.');
+            if (resultsCount) {
+                resultsCount.textContent = `Ultimi Inseriti (${PRODUCTS.length} Carrelli)`;
+            }
+            return;
+        }
+
         const filtered = PRODUCTS.filter(prod => {
             // 1. Categoria
             let matchCat = false;
