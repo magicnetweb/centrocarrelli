@@ -2,6 +2,50 @@
 
 <html lang="it">
 <head>
+<script>
+(function() {
+    if (window.location.hostname.includes('github.io')) {
+        var pathPrefix = '/centrocarrelli';
+        
+        function rewriteAttr(el, attr) {
+            var val = el.getAttribute(attr);
+            if (val && val.startsWith('/') && !val.startsWith(pathPrefix + '/') && !val.startsWith('//')) {
+                el.setAttribute(attr, pathPrefix + val);
+            }
+        }
+        
+        function processElement(el) {
+            if (el.tagName === 'LINK') {
+                rewriteAttr(el, 'href');
+            } else if (el.tagName === 'SCRIPT' || el.tagName === 'IMG' || el.tagName === 'IFRAME') {
+                rewriteAttr(el, 'src');
+            } else if (el.tagName === 'A') {
+                rewriteAttr(el, 'href');
+            }
+        }
+        
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        processElement(node);
+                        var children = node.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]');
+                        children.forEach(processElement);
+                    }
+                });
+            });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        
+        document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        });
+    }
+})();
+</script>
+
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Occasioni Carrelli e Transpallet STILL — Usati Ricondizionati — Centro Carrelli Bologna</title>
@@ -197,22 +241,22 @@
 <div style="height:3px;background:var(--color-orange);position:fixed;top:0;left:0;width:100%;z-index:10000;"></div>
 <header class="nav-header" id="nav-header">
 <div class="nav-container">
-<a aria-label="Centro Carrelli" class="nav-logo" href="../../index.html">
+<a aria-label="Centro Carrelli" class="nav-logo" href="/">
 <img alt="Centro Carrelli" height="240" src="/assets/logo_centrocarrelli.png" style="height: 45px; width: auto;" width="901"/>
 </a>
 <button aria-controls="nav-menu" aria-expanded="false" aria-label="Apri menu" class="hamburger">
 <span></span><span></span><span></span>
 </button>
 <ul class="nav-menu" id="nav-menu">
-<li class="nav-item"><a href="../../index.html#finder">Carrelli Frontali</a></li>
-<li class="nav-item"><a href="../../index.html#finder">Carrelli Magazzino</a></li>
-<li class="nav-item"><a href="../../index.html#finder">Transpallet</a></li>
-<li class="nav-item"><a href="occasioni.html" style="color:#1A1A1A;font-weight:700;">Occasioni</a></li>
-<li class="nav-item"><a href="https://www.centrocarrelli.net/noleggio-carrelli-elevatori/">Noleggio</a></li>
-<li class="nav-item"><a href="https://www.centrocarrelli.net/azienda/">Azienda</a></li>
-<li class="nav-item"><a href="https://www.centrocarrelli.net/assistenza-manutenzione-muletti/">Assistenza</a></li>
-<li class="nav-item"><a href="https://www.centrocarrelli.net/contatti/">Contatti</a></li>
-<li class="nav-cta"><a class="btn btn-primary" href="https://www.centrocarrelli.net/contatti/">Richiedi Preventivo</a></li>
+<li class="nav-item"><a href="/carrelli-frontali/">Carrelli Frontali</a></li>
+<li class="nav-item"><a href="/carrelli-magazzino/">Carrelli Magazzino</a></li>
+<li class="nav-item"><a href="/transpallet/">Transpallet</a></li>
+<li class="nav-item"><a href="/occasioni/" style="color:#1A1A1A;font-weight:700;">Occasioni</a></li>
+<li class="nav-item"><a href="/noleggio-carrelli-elevatori/">Noleggio</a></li>
+<li class="nav-item"><a href="/azienda/">Azienda</a></li>
+<li class="nav-item"><a href="/assistenza-manutenzione-muletti/">Assistenza</a></li>
+<li class="nav-item"><a href="/contatti/">Contatti</a></li>
+<li class="nav-cta"><a class="btn btn-primary" href="/contatti/">Richiedi Preventivo</a></li>
 </ul>
 </div>
 </header>
@@ -293,9 +337,9 @@
 </div>
 <div class="flotta-grid">
 <!-- STILL RX 70-25 -->
-<a class="flotta-item" href="https://www.centrocarrelli.net/carrelli/frontale-diesel-still-rx-70-25-2/" target="_blank">
+<a class="flotta-item" href="/carrelli/frontale-diesel-still-rx-70-25-2/" target="_blank">
 <span style="position:absolute;top:15px;right:15px;background:#64748B;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Diesel</span>
-<img alt="STILL RX 70-25" height="675" src="https://www.centrocarrelli.net/wp-content/uploads/2026/03/FRONTALE-DIESEL-STILL-RX-70-30-2.jpg" width="1200"/>
+<img alt="STILL RX 70-25" height="675" src="/wp-content/uploads/2026/03/FRONTALE-DIESEL-STILL-RX-70-30-2.jpg" width="1200"/>
 <h3>STILL RX 70-25</h3>
 <ul class="specs">
 <li>Marca: <strong>STILL</strong></li>
@@ -309,9 +353,9 @@
 <div class="card-btn">Vedi Dettagli</div>
 </a>
 <!-- LINDE E 18 -->
-<a class="flotta-item" href="https://www.centrocarrelli.net/carrelli/frontale-elettrico-linde-e-18/" target="_blank">
+<a class="flotta-item" href="/carrelli/frontale-elettrico-linde-e-18/" target="_blank">
 <span style="position:absolute;top:15px;right:15px;background:#C84E00;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Elettrico</span>
-<img alt="LINDE E 18" height="675" src="https://www.centrocarrelli.net/wp-content/uploads/2024/07/FRONTALE-ELETTRICO-LINDE-E-18-2.jpg" width="1200"/>
+<img alt="LINDE E 18" height="675" src="/wp-content/uploads/2024/07/FRONTALE-ELETTRICO-LINDE-E-18-2.jpg" width="1200"/>
 <h3>LINDE E 18</h3>
 <ul class="specs">
 <li>Marca: <strong>LINDE</strong></li>
@@ -325,9 +369,9 @@
 <div class="card-btn">Vedi Dettagli</div>
 </a>
 <!-- LUGLI ELX 30 -->
-<a class="flotta-item" href="https://www.centrocarrelli.net/carrelli/frontale-elettrico-lugli-elx-30/" target="_blank">
+<a class="flotta-item" href="/carrelli/frontale-elettrico-lugli-elx-30/" target="_blank">
 <span style="position:absolute;top:15px;right:15px;background:#C84E00;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Elettrico</span>
-<img alt="LUGLI ELX 30" height="675" src="https://www.centrocarrelli.net/wp-content/uploads/2024/07/FRONTALE-ELETTRICO-LUGLI-ELX-30-3.jpg" width="1200"/>
+<img alt="LUGLI ELX 30" height="675" src="/wp-content/uploads/2024/07/FRONTALE-ELETTRICO-LUGLI-ELX-30-3.jpg" width="1200"/>
 <h3>LUGLI ELX 30</h3>
 <ul class="specs">
 <li>Marca: <strong>LUGLI</strong></li>
@@ -341,9 +385,9 @@
 <div class="card-btn">Vedi Dettagli</div>
 </a>
 <!-- OM EU 17.5 -->
-<a class="flotta-item" href="https://www.centrocarrelli.net/carrelli/frontale-elettrico-om-eu-17-5/" target="_blank">
+<a class="flotta-item" href="/carrelli/frontale-elettrico-om-eu-17-5/" target="_blank">
 <span style="position:absolute;top:15px;right:15px;background:#C84E00;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Elettrico</span>
-<img alt="OM EU 17.5" height="675" src="https://www.centrocarrelli.net/wp-content/uploads/2023/07/CARRELLO-ELEVATORE-ELETTRICO-OM-EU-17-2.jpg" width="1200"/>
+<img alt="OM EU 17.5" height="675" src="/wp-content/uploads/2023/07/CARRELLO-ELEVATORE-ELETTRICO-OM-EU-17-2.jpg" width="1200"/>
 <h3>OM EU 17.5</h3>
 <ul class="specs">
 <li>Marca: <strong>OM</strong></li>
@@ -357,9 +401,9 @@
 <div class="card-btn">Vedi Dettagli</div>
 </a>
 <!-- CESAB ECO M 40.3 -->
-<a class="flotta-item" href="https://www.centrocarrelli.net/carrelli/frontale-elettrico-cesab-eco-m-40-3/" target="_blank">
+<a class="flotta-item" href="/carrelli/frontale-elettrico-cesab-eco-m-40-3/" target="_blank">
 <span style="position:absolute;top:15px;right:15px;background:#C84E00;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Elettrico</span>
-<img alt="CESAB ECO M 40.3" height="1619" src="https://www.centrocarrelli.net/wp-content/uploads/2022/02/FRONTALE-ELETTRICO-CESAB-ECO-M-40-1-scaled.jpg" width="2880"/>
+<img alt="CESAB ECO M 40.3" height="1619" src="/wp-content/uploads/2022/02/FRONTALE-ELETTRICO-CESAB-ECO-M-40-1-scaled.jpg" width="2880"/>
 <h3>CESAB ECO M 40.3</h3>
 <ul class="specs">
 <li>Marca: <strong>CESAB</strong></li>
@@ -373,9 +417,9 @@
 <div class="card-btn">Vedi Dettagli</div>
 </a>
 <!-- OM PINZA PER FUSTI -->
-<a class="flotta-item" href="https://www.centrocarrelli.net/carrelli/pinza-per-fusti/" target="_blank">
+<a class="flotta-item" href="/carrelli/pinza-per-fusti/" target="_blank">
 <span style="position:absolute;top:15px;right:15px;background:#0284C7;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Attrezzatura</span>
-<img alt="OM PINZA PER FUSTI" height="1296" src="https://www.centrocarrelli.net/wp-content/uploads/2014/01/Pinza-per-fusti-2.jpg" width="968"/>
+<img alt="OM PINZA PER FUSTI" height="1296" src="/wp-content/uploads/2014/01/Pinza-per-fusti-2.jpg" width="968"/>
 <h3>OM PINZA PER FUSTI</h3>
 <ul class="specs">
 <li>Marca: <strong>OM</strong></li>
@@ -389,9 +433,9 @@
 <div class="card-btn">Vedi Dettagli</div>
 </a>
 <!-- CARER NK 15 -->
-<a class="flotta-item" href="https://www.centrocarrelli.net/carrelli/carer-nk-15/" target="_blank">
+<a class="flotta-item" href="/carrelli/carer-nk-15/" target="_blank">
 <span style="position:absolute;top:15px;right:15px;background:#C84E00;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Elettrico</span>
-<img alt="FRONTALE ELETTRICO CARER NK 15" height="2160" src="https://www.centrocarrelli.net/wp-content/uploads/2013/11/SAM_3353-scaled.jpg" width="2880"/>
+<img alt="FRONTALE ELETTRICO CARER NK 15" height="2160" src="/wp-content/uploads/2013/11/SAM_3353-scaled.jpg" width="2880"/>
 <h3>CARER NK 15</h3>
 <ul class="specs">
 <li>Marca: <strong>CARER</strong></li>
@@ -410,21 +454,21 @@
 <div class="cta-band">
 <h2>Vuoi sapere di più su un'occasione?</h2>
 <p>Contattaci per verificare la disponibilità e richiedere un preventivo. Ti rispondiamo entro 24 ore.</p>
-<a href="https://www.centrocarrelli.net/contatti/">Richiedi informazioni</a>
+<a href="/contatti/">Richiedi informazioni</a>
 </div>
 <!-- Footer -->
 </main>
 <footer class="footer-bottom">
 <div class="footer-container">
 <p>© 2026 Centro Carrelli S.r.l. - Via R. Viganò 10, Bentivoglio (BO) - P.IVA 01234567890. Concessionario STILL Ufficiale.</p>
-<ul class="footer-links">
-<li><a href="https://www.centrocarrelli.net/news/">News</a></li>
-<li><a href="https://www.centrocarrelli.net/newsletter/">Newsletter</a></li>
-<li><a href="https://www.centrocarrelli.net/privacy-policy/">Privacy</a></li>
-<li><a href="https://www.centrocarrelli.net/mappa-sito/">Mappa sito</a></li>
-<li><a href="https://www.centrocarrelli.net/cookie-policy/">Cookie</a></li>
-<li><a href="https://www.centrocarrelli.net/contatti/">Contatti</a></li>
-<li><a href="https://www.centrocarrelli.net/lavora-con-noi/">Lavora con noi</a></li>
+<ul class="footer-links" style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
+<li><a href="/news/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">News</a></li>
+<li><a href="/newsletter/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Newsletter</a></li>
+<li><a href="/privacy-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Privacy</a></li>
+<li><a href="/mappa-sito/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Mappa sito</a></li>
+<li><a href="/cookie-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Cookie</a></li>
+<li><a href="/contatti/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Contatti</a></li>
+<li><a href="/lavora-con-noi/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Lavora con noi</a></li>
 </ul>
 </div>
 </footer>

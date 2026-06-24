@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<script>
+(function() {
+    if (window.location.hostname.includes('github.io')) {
+        var pathPrefix = '/centrocarrelli';
+        
+        function rewriteAttr(el, attr) {
+            var val = el.getAttribute(attr);
+            if (val && val.startsWith('/') && !val.startsWith(pathPrefix + '/') && !val.startsWith('//')) {
+                el.setAttribute(attr, pathPrefix + val);
+            }
+        }
+        
+        function processElement(el) {
+            if (el.tagName === 'LINK') {
+                rewriteAttr(el, 'href');
+            } else if (el.tagName === 'SCRIPT' || el.tagName === 'IMG' || el.tagName === 'IFRAME') {
+                rewriteAttr(el, 'src');
+            } else if (el.tagName === 'A') {
+                rewriteAttr(el, 'href');
+            }
+        }
+        
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        processElement(node);
+                        var children = node.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]');
+                        children.forEach(processElement);
+                    }
+                });
+            });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        
+        document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        });
+    }
+})();
+</script>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Assistenza e Manutenzione Muletti Bologna — Centro Carrelli</title>
+<meta content="Tecnici certificati STILL a Bologna per assistenza e manutenzione muletti. Interventi rapidi, ricambi originali e servizio programmato." name="description"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css?v=1.5" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+        :root {
+            --color-orange: #C84E00;
+            --color-ink: #1A1A1A;
+            --color-body: #5C5B59;
+            --color-border: #E6E5E3;
+            --color-band: #F2F1EF;
+        }
+
+        .page-intro {
+            padding: 140px 24px 60px;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        .page-intro .breadcrumb {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--color-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 32px;
+        }
+        .page-intro h1 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            color: var(--color-ink);
+            margin-bottom: 28px;
+            border: none; padding: 0; display: block;
+        }
+        .page-intro .lead {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--color-body);
+            border-left: 3px solid var(--color-orange);
+            padding-left: 20px;
+        }
+
+        .full-image {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 0 24px;
+        }
+        .full-image img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            display: block;
+        }
+        .full-image figcaption {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--color-body);
+            padding: 10px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .editorial {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        .editorial h2 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.8px;
+            color: var(--color-ink);
+            margin-bottom: 20px;
+            margin-top: 48px;
+        }
+        .editorial h2:first-child { margin-top: 0; }
+        .editorial p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--color-body);
+            margin-bottom: 20px;
+        }
+        .editorial strong { color: var(--color-ink); }
+
+        /* Numeri banda */
+        .numeri-band {
+            background: var(--color-ink);
+            padding: 56px 24px;
+        }
+        .numeri-row {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            text-align: center;
+        }
+        .numeri-row .n-val {
+            font-family: 'Archivo', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--color-orange);
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+        .numeri-row .n-lbl {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        /* Servizi griglia */
+        .servizi-section {
+            padding: 80px 24px;
+            background: var(--color-band);
+        }
+        .servizi-header {
+            max-width: 720px;
+            margin: 0 auto 48px;
+        }
+        .servizi-header h2 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.8px;
+            margin-bottom: 12px;
+        }
+        .servizi-header p {
+            color: var(--color-body);
+            font-size: 1rem;
+            line-height: 1.65;
+        }
+        .servizi-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--color-border);
+        }
+        .servizio {
+            background: #fff;
+            padding: 36px 28px;
+        }
+        .servizio-icon {
+            color: var(--color-orange);
+            margin-bottom: 16px;
+        }
+        .servizio h3 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+        .servizio p {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: var(--color-body);
+        }
+
+        /* Come funziona - processo */
+        .processo-section {
+            padding: 80px 24px;
+            background: #fff;
+        }
+        .processo-header {
+            max-width: 720px;
+            margin: 0 auto 48px;
+        }
+        .processo-header h2 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.8px;
+            margin-bottom: 12px;
+        }
+        .processo-steps {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        .step-num {
+            width: 48px;
+            height: 48px;
+            background: var(--color-orange);
+            color: #fff;
+            font-family: 'Archivo', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+        .step h3 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .step p {
+            font-size: 0.85rem;
+            color: var(--color-body);
+            line-height: 1.55;
+        }
+
+        /* Contratti */
+        .contratti-section {
+            padding: 80px 24px;
+            background: var(--color-band);
+        }
+        .contratti-header {
+            max-width: 720px;
+            margin: 0 auto 48px;
+        }
+        .contratti-header h2 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.8px;
+            margin-bottom: 12px;
+        }
+        .contratti-header p {
+            color: var(--color-body);
+            font-size: 1rem;
+            line-height: 1.65;
+        }
+        .contratti-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .contratto {
+            background: #fff;
+            border: 1px solid var(--color-border);
+            padding: 36px 28px;
+            transition: all 150ms ease-out;
+        }
+        .contratto:hover {
+            border-color: var(--color-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .contratto-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--color-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .contratto h3 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+        }
+        .contratto p {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: var(--color-body);
+            margin-bottom: 16px;
+        }
+        .contratto ul {
+            list-style: none;
+            padding: 0;
+        }
+        .contratto ul li {
+            font-size: 0.85rem;
+            color: var(--color-body);
+            padding: 6px 0;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .contratto ul li:last-child { border: none; }
+        .contratto ul li i { color: var(--color-orange); flex-shrink: 0; }
+
+        /* CTA */
+        .cta-band {
+            background: var(--color-orange);
+            padding: 48px 24px;
+            text-align: center;
+        }
+        .cta-band h2 {
+            color: #fff;
+            font-family: 'Archivo', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+        }
+        .cta-band p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            margin-bottom: 24px;
+        }
+        .cta-band a {
+            display: inline-block;
+            background: #fff;
+            color: var(--color-ink);
+            padding: 14px 36px;
+            font-family: 'Archivo', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 2px;
+            transition: all 150ms ease-out;
+        }
+        .cta-band a:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+        @media (max-width: 768px) {
+            .page-intro h1 { font-size: 2.2rem; }
+            .numeri-row { grid-template-columns: repeat(2, 1fr); }
+            .servizi-grid, .contratti-grid { grid-template-columns: 1fr; }
+            .processo-steps { grid-template-columns: repeat(2, 1fr); }
+            .full-image img { height: 220px; }
+        }
+    </style>
+</head>
+<body>
+<div style="height:3px;background:var(--color-orange);position:fixed;top:0;left:0;width:100%;z-index:10000;"></div>
+<header class="nav-header" id="nav-header">
+<div class="nav-container">
+<a aria-label="Centro Carrelli" class="nav-logo" href="/">
+<img alt="Centro Carrelli" height="240" src="/assets/logo_centrocarrelli.png" style="height: 45px; width: auto;" width="901"/>
+</a>
+<button aria-controls="nav-menu" aria-expanded="false" aria-label="Apri menu" class="hamburger">
+<span></span><span></span><span></span>
+</button>
+<ul class="nav-menu" id="nav-menu">
+<li class="nav-item"><a href="/carrelli-frontali/">Carrelli Frontali</a></li>
+<li class="nav-item"><a href="/carrelli-magazzino/">Carrelli Magazzino</a></li>
+<li class="nav-item"><a href="/transpallet/">Transpallet</a></li>
+<li class="nav-item"><a href="/occasioni/">Occasioni</a></li>
+<li class="nav-item"><a href="/noleggio-carrelli-elevatori/">Noleggio</a></li>
+<li class="nav-item"><a href="/azienda/">Azienda</a></li>
+<li class="nav-item"><a href="/assistenza-manutenzione-muletti/" style="color:#1A1A1A;font-weight:700;">Assistenza</a></li>
+<li class="nav-item"><a href="/contatti/">Contatti</a></li>
+<li class="nav-cta"><a class="btn btn-primary" href="/contatti/">Richiedi Preventivo</a></li>
+</ul>
+</div>
+</header>
+<main id="main-content">
+<!-- Intro -->
+<div class="page-intro">
+<div class="breadcrumb">Assistenza tecnica</div>
+<h1>Assistenza e manutenzione muletti a Bologna</h1>
+<p class="lead">Il nostro servizio di assistenza è sempre attivo a 360° per tutti i clienti. Dalla scelta del mezzo più adatto alle vostre esigenze fino alla manutenzione programmata delle macchine in vendita e a noleggio.</p>
+</div>
+<!-- Foto -->
+<figure class="full-image">
+<img alt="Furgone assistenza Centro Carrelli Bologna" height="1024" src="/assets/service_van.png" width="1024"/>
+<figcaption>I nostri furgoni attrezzati raggiungono tutta l'Emilia-Romagna in giornata</figcaption>
+</figure>
+<!-- Corpo editoriale -->
+<div class="editorial">
+<h2>Perché la manutenzione è fondamentale</h2>
+<p>Un carrello elevatore fermo è un costo. Ogni ora di inattività rallenta la produzione, blocca le spedizioni e incide sul fatturato. Per questo la nostra assistenza è progettata per <strong>minimizzare i tempi di fermo</strong>: interveniamo rapidamente, con ricambi disponibili e tecnici che conoscono ogni modello STILL.</p>
+<p>Non aspettiamo che il problema si presenti. Con i nostri <strong>contratti di manutenzione programmata</strong>, preveniamo i guasti prima che accadano, allunghiamo la vita del carrello e manteniamo costanti le prestazioni.</p>
+<h2>Il nostro team</h2>
+<p><strong>15 tecnici certificati STILL</strong> operano quotidianamente su tutto il territorio dell'Emilia-Romagna. Ogni tecnico dispone di un furgone attrezzato con le attrezzature diagnostiche più avanzate e un kit di <strong>ricambi originali</strong> per risolvere la maggior parte dei problemi al primo intervento.</p>
+</div>
+<!-- Numeri -->
+<div class="numeri-band">
+<div class="numeri-row">
+<div><div class="n-val">15</div><div class="n-lbl">Tecnici certificati</div></div>
+<div><div class="n-val">98%</div><div class="n-lbl">Risolti in 24h</div></div>
+<div><div class="n-val">4h</div><div class="n-lbl">Tempo medio intervento</div></div>
+<div><div class="n-val">100%</div><div class="n-lbl">Ricambi originali</div></div>
+</div>
+</div>
+<!-- Servizi assistenza -->
+<div class="servizi-section">
+<div class="servizi-header">
+<h2>I nostri servizi di assistenza</h2>
+<p>Copriamo ogni aspetto della manutenzione, dalla riparazione d'urgenza alla gestione completa della flotta.</p>
+</div>
+<div class="servizi-grid">
+<div class="servizio">
+<div class="servizio-icon"><i data-lucide="alert-triangle" style="width:28px;height:28px;"></i></div>
+<h3>Pronto intervento</h3>
+<p>Intervento d'emergenza entro 4 ore dalla chiamata. Disponibile dal lunedì al venerdì, su tutto il territorio regionale.</p>
+</div>
+<div class="servizio">
+<div class="servizio-icon"><i data-lucide="calendar-check" style="width:28px;height:28px;"></i></div>
+<h3>Manutenzione programmata</h3>
+<p>Interventi periodici pianificati per prevenire guasti, ridurre i costi e mantenere il carrello sempre efficiente.</p>
+</div>
+<div class="servizio">
+<div class="servizio-icon"><i data-lucide="cpu" style="width:28px;height:28px;"></i></div>
+<h3>Diagnostica avanzata</h3>
+<p>Strumentazione STILL di ultima generazione per identificare rapidamente qualsiasi anomalia elettrica o meccanica.</p>
+</div>
+<div class="servizio">
+<div class="servizio-icon"><i data-lucide="package" style="width:28px;height:28px;"></i></div>
+<h3>Ricambi originali</h3>
+<p>Magazzino ricambi STILL sempre fornito. Consegna rapida per ridurre al minimo i tempi di attesa e di fermo macchina.</p>
+</div>
+<div class="servizio">
+<div class="servizio-icon"><i data-lucide="battery-charging" style="width:28px;height:28px;"></i></div>
+<h3>Batterie e ricarica</h3>
+<p>Manutenzione e sostituzione batterie piombo-acido e litio. Consulenza per ottimizzare i costi energetici.</p>
+</div>
+<div class="servizio">
+<div class="servizio-icon"><i data-lucide="shield-check" style="width:28px;height:28px;"></i></div>
+<h3>Verifiche periodiche</h3>
+<p>Controlli di sicurezza obbligatori secondo D.Lgs. 81/08. Documentazione completa e aggiornata per ogni mezzo.</p>
+</div>
+</div>
+</div>
+<!-- Come funziona -->
+<div class="processo-section">
+<div class="processo-header">
+<h2>Come funziona</h2>
+</div>
+<div class="processo-steps">
+<div class="step">
+<div class="step-num">1</div>
+<h3>Chiamata</h3>
+<p>Ci contatti al 051 860066 o via email per segnalare il problema</p>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<h3>Diagnosi</h3>
+<p>Il nostro tecnico valuta la situazione e pianifica l'intervento</p>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<h3>Intervento</h3>
+<p>Arriviamo con furgone attrezzato e ricambi pronti</p>
+</div>
+<div class="step">
+<div class="step-num">4</div>
+<h3>Risolto</h3>
+<p>Il carrello torna operativo con report dettagliato dell'intervento</p>
+</div>
+</div>
+</div>
+<!-- Contratti -->
+<div class="contratti-section">
+<div class="contratti-header">
+<h2>Contratti di manutenzione</h2>
+<p>Scegli il livello di copertura più adatto alla tua flotta. Tutti i contratti includono ricambi originali STILL.</p>
+</div>
+<div class="contratti-grid">
+<div class="contratto">
+<div class="contratto-tag">Base</div>
+<h3>Manutenzione ordinaria</h3>
+<p>Interventi programmati per mantenere il carrello efficiente e sicuro.</p>
+<ul>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Tagliandi periodici</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Cambio olio e filtri</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Controllo sicurezza</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Report digitale</li>
+</ul>
+</div>
+<div class="contratto" style="border-color:var(--color-orange);">
+<div class="contratto-tag">Completo</div>
+<h3>Full Service</h3>
+<p>Copertura totale: ordinaria, straordinaria e pronto intervento incluso.</p>
+<ul>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Tutto il piano Base</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Riparazioni straordinarie</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Pronto intervento 4h</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Ricambi inclusi</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Costo fisso mensile</li>
+</ul>
+</div>
+<div class="contratto">
+<div class="contratto-tag">Flotte</div>
+<h3>Fleet Management</h3>
+<p>Gestione completa della flotta con analisi dati e ottimizzazione costi.</p>
+<ul>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Tutto il piano Completo</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Analisi utilizzo flotta</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Report trimestrale</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Account manager dedicato</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="cta-band">
+<h2>Il tuo carrello ha bisogno di assistenza?</h2>
+<p>Chiamaci o richiedi un sopralluogo gratuito. Rispondiamo entro 4 ore.</p>
+<a href="/contatti/">Richiedi un sopralluogo</a>
+</div>
+<!-- Footer -->
+</main>
+<footer class="footer-bottom">
+<div class="footer-container">
+<p>© 2026 Centro Carrelli S.r.l. - Via R. Viganò 10, Bentivoglio (BO) - P.IVA 01234567890. Concessionario STILL Ufficiale.</p>
+<ul class="footer-links" style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
+<li><a href="/news/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">News</a></li>
+<li><a href="/newsletter/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Newsletter</a></li>
+<li><a href="/privacy-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Privacy</a></li>
+<li><a href="/mappa-sito/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Mappa sito</a></li>
+<li><a href="/cookie-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Cookie</a></li>
+<li><a href="/contatti/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Contatti</a></li>
+<li><a href="/lavora-con-noi/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Lavora con noi</a></li>
+</ul>
+</div>
+</footer>
+<script>
+        if (typeof lucide !== 'undefined') { lucide.createIcons(); };
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        window.addEventListener('scroll', function() {
+            document.querySelector('.nav-header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+</body>
+</html>

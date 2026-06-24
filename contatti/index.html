@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<script>
+(function() {
+    if (window.location.hostname.includes('github.io')) {
+        var pathPrefix = '/centrocarrelli';
+        
+        function rewriteAttr(el, attr) {
+            var val = el.getAttribute(attr);
+            if (val && val.startsWith('/') && !val.startsWith(pathPrefix + '/') && !val.startsWith('//')) {
+                el.setAttribute(attr, pathPrefix + val);
+            }
+        }
+        
+        function processElement(el) {
+            if (el.tagName === 'LINK') {
+                rewriteAttr(el, 'href');
+            } else if (el.tagName === 'SCRIPT' || el.tagName === 'IMG' || el.tagName === 'IFRAME') {
+                rewriteAttr(el, 'src');
+            } else if (el.tagName === 'A') {
+                rewriteAttr(el, 'href');
+            }
+        }
+        
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        processElement(node);
+                        var children = node.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]');
+                        children.forEach(processElement);
+                    }
+                });
+            });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        
+        document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        });
+    }
+})();
+</script>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contatti — Centro Carrelli</title>
+<meta content="Contattaci per informazioni, preventivi o assistenza. Siamo a tua disposizione in Emilia‑Romagna." name="description"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css?v=1.5" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+        :root {
+            --color-orange: #C84E00;
+            --color-ink: #1A1A1A;
+            --color-body: #5C5B59;
+            --color-border: #E6E5E3;
+            --color-band: #F2F1EF;
+        }
+        .page-intro { padding: 140px 24px 60px; max-width: 820px; margin: 0 auto; }
+        .page-intro .breadcrumb { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--color-orange); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 32px; }
+        .page-intro h1 { font-family: 'Archivo', sans-serif; font-size: 3.2rem; font-weight: 900; letter-spacing: -2px; line-height: 1.05; color: var(--color-ink); margin-bottom: 28px; border: none; padding: 0; display: block; }
+        .page-intro .lead { font-size: 1.25rem; line-height: 1.7; color: var(--color-body); border-left: 3px solid var(--color-orange); padding-left: 20px; }
+        .contact-section { background: var(--color-band); padding: 80px 24px; }
+        .contact-header { max-width: 720px; margin: 0 auto 48px; }
+        .contact-header h2 { font-family: 'Archivo', sans-serif; font-size: 1.8rem; font-weight: 900; letter-spacing: -0.8px; color: var(--color-ink); margin-bottom: 12px; }
+        .contact-header p { color: var(--color-body); font-size: 1rem; line-height: 1.65; }
+        .contact-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .contact-info { font-size: 1rem; line-height: 1.6; color: var(--color-body); }
+        .contact-info a { color: var(--color-orange); text-decoration: none; }
+        .contact-form { background: #fff; padding: 36px 28px; border: 1px solid var(--color-border); }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid var(--color-border); font-family: inherit; font-size: 0.95rem; }
+        .contact-form button { background: var(--color-orange); color: #fff; border: none; padding: 12px 24px; font-family: 'Archivo', sans-serif; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+        .contact-form button:hover { background: #e65a12; }
+        .map-section-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        @media (max-width: 768px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .map-section-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div style="height:3px;background:var(--color-orange);position:fixed;top:0;left:0;width:100%;z-index:10000;"></div>
+<header class="nav-header" id="nav-header">
+<div class="nav-container">
+<a aria-label="Centro Carrelli" class="nav-logo" href="/">
+<img alt="Centro Carrelli" height="240" src="/assets/logo_centrocarrelli.png" style="height: 45px; width: auto;" width="901"/>
+</a>
+<button aria-controls="nav-menu" aria-expanded="false" aria-label="Apri menu" class="hamburger">
+<span></span><span></span><span></span>
+</button>
+<ul class="nav-menu" id="nav-menu">
+<li class="nav-item"><a href="/carrelli-frontali/">Carrelli Frontali</a></li>
+<li class="nav-item"><a href="/carrelli-magazzino/">Carrelli Magazzino</a></li>
+<li class="nav-item"><a href="/transpallet/">Transpallet</a></li>
+<li class="nav-item"><a href="/occasioni/">Occasioni</a></li>
+<li class="nav-item"><a href="/noleggio-carrelli-elevatori/">Noleggio</a></li>
+<li class="nav-item"><a href="/azienda/">Azienda</a></li>
+<li class="nav-item"><a href="/assistenza-manutenzione-muletti/" style="color:#1A1A1A;font-weight:700;">Assistenza</a></li>
+<li class="nav-item"><a href="/contatti/" style="color:#1A1A1A;font-weight:700;">Contatti</a></li>
+<li class="nav-cta"><a class="btn btn-primary" href="/contatti/">Richiedi Preventivo</a></li>
+</ul>
+</div>
+</header>
+<main id="main-content">
+<div class="page-intro">
+<div class="breadcrumb">Contatti</div>
+<h1>Contatti</h1>
+<p class="lead">Hai domande, richieste di preventivo o necessiti di assistenza? Siamo a tua disposizione.</p>
+</div>
+<section class="contact-section">
+<div class="contact-header">
+<h2>Rimaniamo in contatto</h2>
+<p>Puoi contattarci telefonicamente, via email o compilare il modulo qui sotto. Ti risponderemo entro 24 ore.</p>
+</div>
+<div class="contact-grid">
+<div class="contact-info">
+<p><strong>Telefono:</strong> <a href="tel:051860066">051 860066</a></p>
+<p><strong>Email:</strong> <a href="mailto:info@centrocarrelli.it">info@centrocarrelli.it</a></p>
+<p><strong>Indirizzo:</strong> Via R. Viganò 10, Bentivoglio (BO) – Concessionario STILL Ufficiale</p>
+<p><strong>Orario:</strong> Lunedì‑Venerdì 08:00‑18:00</p>
+</div>
+<form action="/contatti-submit.php" class="contact-form" method="POST">
+<input name="nome" placeholder="Nome e Cognome" required="" type="text"/>
+<input name="email" placeholder="Email" required="" type="email"/>
+<input name="telefono" placeholder="Telefono" type="text"/>
+<textarea name="messaggio" placeholder="Il tuo messaggio" required="" rows="5"></textarea>
+<button type="submit">Invia</button>
+</form>
+</div>
+</section>
+<!-- Mappa e Come Arrivare -->
+<section class="map-section" style="padding: 60px 24px; background: #fff; border-top: 1px solid var(--color-border);">
+<div class="map-section-grid" style="max-width: 1000px; margin: 0 auto;">
+<div class="map-container" style="border: 1px solid var(--color-border); border-radius: 4px; overflow: hidden; line-height: 0;">
+<iframe allowfullscreen="" height="450" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2840.4231605695622!2d11.368838039530225!3d44.608822390224894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477fcd08b002340b%3A0xda024872cfa5366d!2sCentro%20Carrelli!5e0!3m2!1sen!2sit!4v1769645538920!5m2!1sen!2sit" style="border:0;" width="100%"></iframe>
+</div>
+<div class="directions-container" style="font-family: 'Archivo', sans-serif;">
+<h2 style="font-size: 1.4rem; font-weight: 800; text-transform: uppercase; color: var(--color-ink); margin-top: 0; margin-bottom: 24px; letter-spacing: -0.5px;">Come Arrivare</h2>
+<div style="margin-bottom: 20px;">
+<h3 style="font-size: 1rem; font-weight: 700; color: var(--color-orange); margin-top: 0; margin-bottom: 6px; text-transform: uppercase;">Da Bologna</h3>
+<p style="font-size: 0.95rem; line-height: 1.5; color: var(--color-body); margin: 0;">Dopo Funo di Argelato, rimanendo sulla strada provinciale Galliera, alla rotonda prendere la prima uscita a destra.</p>
+</div>
+<div style="margin-bottom: 20px;">
+<h3 style="font-size: 1rem; font-weight: 700; color: var(--color-orange); margin-top: 0; margin-bottom: 6px; text-transform: uppercase;">Dall’autostrada A13 uscita Interporto</h3>
+<p style="font-size: 0.95rem; line-height: 1.5; color: var(--color-body); margin: 0;">Dopo il casello svoltare a destra. Seguire per 3km la Trasversale di Pianura, prendere lo svincolo e seguire le indicazioni per S. Giorgio di Piano, alla rotonda svoltare alla prima uscita.</p>
+</div>
+<div style="margin-bottom: 28px;">
+<h3 style="font-size: 1rem; font-weight: 700; color: var(--color-orange); margin-top: 0; margin-bottom: 6px; text-transform: uppercase;">Da Altedo / Cento</h3>
+<p style="font-size: 0.95rem; line-height: 1.5; color: var(--color-body); margin: 0;">Seguire la strada provinciale Galliera in direzione Bologna, passato il Brico, alla prima rotonda (circa 2km) prendere la terza uscita.</p>
+</div>
+<a class="btn btn-primary" href="https://www.google.com/maps/dir/44.360068,11.18232/Centro+Carrelli,+Via+Renata+Vigan%C3%B2,+10,+40010+Bentivoglio+BO/@44.4782391,11.1185544,11z/data=!3m1!4b1!4m10!4m9!1m1!4e1!1m5!1m1!1s0x477fcd08b002340b:0xda024872cfa5366d!2m2!1d11.3714076!2d44.6088186!3e0?entry=ttu&amp;g_ep=EgoyMDI2MDEyNi4wIKXMDSoASAFQAw%3D%3D" style="display: inline-block; padding: 12px 24px; background: var(--color-orange); color: #fff; text-decoration: none; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 0.9rem; transition: background 0.2s;" target="_blank">Naviga con Maps</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer-bottom">
+<div class="footer-container">
+<p>© 2026 Centro Carrelli S.r.l. - Via R. Viganò 10, Bentivoglio (BO) - P.IVA 01234567890. Concessionario STILL Ufficiale.</p>
+<ul class="footer-links" style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
+<li><a href="/news/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">News</a></li>
+<li><a href="/newsletter/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Newsletter</a></li>
+<li><a href="/privacy-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Privacy</a></li>
+<li><a href="/mappa-sito/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Mappa sito</a></li>
+<li><a href="/cookie-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Cookie</a></li>
+<li><a href="/contatti/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Contatti</a></li>
+<li><a href="/lavora-con-noi/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Lavora con noi</a></li>
+</ul>
+</div>
+</footer>
+<script>
+        if (typeof lucide !== 'undefined') { lucide.createIcons(); };
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        window.addEventListener('scroll', function() {
+            document.querySelector('.nav-header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+</body>
+</html>

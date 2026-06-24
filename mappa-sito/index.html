@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<script>
+(function() {
+    if (window.location.hostname.includes('github.io')) {
+        var pathPrefix = '/centrocarrelli';
+        
+        function rewriteAttr(el, attr) {
+            var val = el.getAttribute(attr);
+            if (val && val.startsWith('/') && !val.startsWith(pathPrefix + '/') && !val.startsWith('//')) {
+                el.setAttribute(attr, pathPrefix + val);
+            }
+        }
+        
+        function processElement(el) {
+            if (el.tagName === 'LINK') {
+                rewriteAttr(el, 'href');
+            } else if (el.tagName === 'SCRIPT' || el.tagName === 'IMG' || el.tagName === 'IFRAME') {
+                rewriteAttr(el, 'src');
+            } else if (el.tagName === 'A') {
+                rewriteAttr(el, 'href');
+            }
+        }
+        
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        processElement(node);
+                        var children = node.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]');
+                        children.forEach(processElement);
+                    }
+                });
+            });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        
+        document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        });
+    }
+})();
+</script>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mappa del sito — Centro Carrelli Bologna</title>
+<meta content="Mappa del sito Centro Carrelli. Trova facilmente tutte le pagine: carrelli frontali, magazzino, transpallet, noleggio, assistenza e contatti." name="description"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css?v=1.5" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+        :root { --color-orange:#C84E00; --color-ink:#1A1A1A; --color-body:#5C5B59; --color-border:#E6E5E3; --color-band:#F2F1EF; }
+
+        .page-intro { padding:140px 24px 60px; max-width:820px; margin:0 auto; }
+        .page-intro .breadcrumb { font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:var(--color-orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:32px; }
+        .page-intro h1 { font-family:'Archivo',sans-serif; font-size:3.2rem; font-weight:900; letter-spacing:-2px; line-height:1.05; color:var(--color-ink); margin-bottom:28px; border:none; padding:0; display:block; }
+        .page-intro .lead { font-size:1.25rem; line-height:1.7; color:var(--color-body); border-left:3px solid var(--color-orange); padding-left:20px; }
+
+        .sitemap-section { max-width:1000px; margin:0 auto; padding:0 24px 80px; }
+        .sitemap-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+
+        .sitemap-group { }
+        .sitemap-group h2 {
+            font-family:'Archivo',sans-serif; font-size:1.1rem; font-weight:800;
+            color:var(--color-ink); text-transform:uppercase; letter-spacing:1px;
+            padding-bottom:12px; border-bottom:2px solid var(--color-orange); margin-bottom:16px;
+        }
+        .sitemap-group ul { list-style:none; padding:0; margin:0; }
+        .sitemap-group ul li { padding:8px 0; border-bottom:1px solid var(--color-border); }
+        .sitemap-group ul li:last-child { border:none; }
+        .sitemap-group ul li a {
+            color:var(--color-body); text-decoration:none; font-size:0.95rem;
+            display:flex; align-items:center; gap:8px; transition:color 150ms;
+        }
+        .sitemap-group ul li a:hover { color:var(--color-orange); }
+        .sitemap-group ul li a i { color:var(--color-orange); flex-shrink:0; }
+
+        @media (max-width:768px) {
+            .page-intro h1 { font-size:2.2rem; }
+            .sitemap-grid { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+<div style="height:3px;background:var(--color-orange);position:fixed;top:0;left:0;width:100%;z-index:10000;"></div>
+<header class="nav-header" id="nav-header">
+<div class="nav-container">
+<a aria-label="Centro Carrelli" class="nav-logo" href="/"><img alt="Centro Carrelli" height="240" src="/assets/logo_centrocarrelli.png" style="height: 45px;width:auto;" width="901"/></a>
+<button aria-controls="nav-menu" aria-expanded="false" aria-label="Apri menu" class="hamburger"><span></span><span></span><span></span></button>
+<ul class="nav-menu" id="nav-menu">
+<li class="nav-item"><a href="/carrelli-frontali/">Carrelli Frontali</a></li>
+<li class="nav-item"><a href="/carrelli-magazzino/">Carrelli Magazzino</a></li>
+<li class="nav-item"><a href="/transpallet/">Transpallet</a></li>
+<li class="nav-item"><a href="/occasioni/">Occasioni</a></li>
+<li class="nav-item"><a href="/noleggio-carrelli-elevatori/">Noleggio</a></li>
+<li class="nav-item"><a href="/azienda/">Azienda</a></li>
+<li class="nav-item"><a href="/assistenza-manutenzione-muletti/">Assistenza</a></li>
+<li class="nav-item"><a href="/contatti/">Contatti</a></li>
+<li class="nav-cta"><a class="btn btn-primary" href="/contatti/">Richiedi Preventivo</a></li>
+</ul>
+</div>
+</header>
+<main id="main-content">
+<div class="page-intro">
+<div class="breadcrumb">Mappa del sito</div>
+<h1>Mappa del sito</h1>
+<p class="lead">Tutte le pagine del sito Centro Carrelli organizzate per sezione. Trova rapidamente ciò che cerchi.</p>
+</div>
+<div class="sitemap-section">
+<div class="sitemap-grid">
+<!-- Prodotti -->
+<div class="sitemap-group">
+<h2>Prodotti</h2>
+<ul>
+<li><a href="/carrelli-frontali/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> Carrelli Frontali</a></li>
+<li><a href="/carrelli-magazzino/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> Carrelli Magazzino</a></li>
+<li><a href="/transpallet/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> Transpallet</a></li>
+<li><a href="/occasioni/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> Occasioni</a></li>
+</ul>
+</div>
+<!-- Servizi -->
+<div class="sitemap-group">
+<h2>Servizi</h2>
+<ul>
+<li><a href="/noleggio-carrelli-elevatori/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> Noleggio</a></li>
+<li><a href="/assistenza-manutenzione-muletti/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> Assistenza</a></li>
+</ul>
+</div>
+<!-- Azienda -->
+<div class="sitemap-group">
+<h2>Azienda</h2>
+<ul>
+<li><a href="/azienda/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> Chi siamo</a></li>
+<li><a href="/contatti/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> Contatti</a></li>
+<li><a href="/lavora-con-noi/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> Lavora con noi</a></li>
+<li><a href="/news/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> News</a></li>
+<li><a href="/newsletter/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> Newsletter</a></li>
+</ul>
+</div>
+<!-- Legale -->
+<div class="sitemap-group">
+<h2>Legale</h2>
+<ul>
+<li><a href="/privacy-policy/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> Privacy Policy</a></li>
+<li><a href="/cookie-policy/"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i> Cookie Policy</a></li>
+</ul>
+</div>
+</div>
+</div>
+</main>
+<footer class="footer-bottom">
+<div class="footer-container">
+<p>© 2026 Centro Carrelli S.r.l. - Via R. Viganò 10, Bentivoglio (BO) - P.IVA 01234567890. Concessionario STILL Ufficiale.</p>
+<ul class="footer-links" style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
+<li><a href="/news/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">News</a></li>
+<li><a href="/newsletter/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Newsletter</a></li>
+<li><a href="/privacy-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Privacy</a></li>
+<li><a href="/mappa-sito/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Mappa sito</a></li>
+<li><a href="/cookie-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Cookie</a></li>
+<li><a href="/contatti/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Contatti</a></li>
+<li><a href="/lavora-con-noi/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Lavora con noi</a></li>
+</ul>
+</div>
+</footer>
+<script>
+        if (typeof lucide !== 'undefined') { lucide.createIcons(); };
+        document.querySelector('.hamburger').addEventListener('click',function(){this.classList.toggle('active');document.querySelector('.nav-menu').classList.toggle('active');});
+        window.addEventListener('scroll',function(){document.querySelector('.nav-header').classList.toggle('scrolled',window.scrollY>50);});
+    </script>
+</body>
+</html>

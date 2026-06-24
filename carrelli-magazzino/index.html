@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<script>
+(function() {
+    if (window.location.hostname.includes('github.io')) {
+        var pathPrefix = '/centrocarrelli';
+        
+        function rewriteAttr(el, attr) {
+            var val = el.getAttribute(attr);
+            if (val && val.startsWith('/') && !val.startsWith(pathPrefix + '/') && !val.startsWith('//')) {
+                el.setAttribute(attr, pathPrefix + val);
+            }
+        }
+        
+        function processElement(el) {
+            if (el.tagName === 'LINK') {
+                rewriteAttr(el, 'href');
+            } else if (el.tagName === 'SCRIPT' || el.tagName === 'IMG' || el.tagName === 'IFRAME') {
+                rewriteAttr(el, 'src');
+            } else if (el.tagName === 'A') {
+                rewriteAttr(el, 'href');
+            }
+        }
+        
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        processElement(node);
+                        var children = node.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]');
+                        children.forEach(processElement);
+                    }
+                });
+            });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        
+        document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        });
+    }
+})();
+</script>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carrelli Magazzino STILL Bologna — Commissionatori e Retrattili — Centro Carrelli</title>
+<meta content="Carrelli da magazzino STILL a Bologna. Retrattili, commissionatori, trilaterali e carrelli VNA per l'ottimizzazione dello stoccaggio. Concessionario ufficiale STILL." name="description"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css?v=1.5" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+        :root {
+            --color-orange: #C84E00;
+            --color-ink: #1A1A1A;
+            --color-body: #5C5B59;
+            --color-border: #E6E5E3;
+            --color-band: #F2F1EF;
+        }
+
+        .page-intro {
+            padding: 140px 24px 60px;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        .page-intro .breadcrumb {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--color-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 32px;
+        }
+        .page-intro h1 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            color: var(--color-ink);
+            margin-bottom: 28px;
+            border: none; padding: 0; display: block;
+        }
+        .page-intro .lead {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--color-body);
+            border-left: 3px solid var(--color-orange);
+            padding-left: 20px;
+        }
+
+        .full-image { max-width: 1200px; margin: 40px auto 0; padding: 0 24px; }
+        .full-image img { width: 100%; height: 360px; object-fit: cover; display: block; }
+        .full-image figcaption {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem; color: var(--color-body);
+            padding: 10px 0; border-bottom: 1px solid var(--color-border);
+        }
+
+        .editorial { max-width: 720px; margin: 0 auto; padding: 60px 24px; }
+        .editorial h2 {
+            font-family: 'Archivo', sans-serif; font-size: 1.8rem; font-weight: 900;
+            letter-spacing: -0.8px; color: var(--color-ink); margin-bottom: 20px; margin-top: 48px;
+        }
+        .editorial h2:first-child { margin-top: 0; }
+        .editorial p { font-size: 1.05rem; line-height: 1.8; color: var(--color-body); margin-bottom: 20px; }
+        .editorial strong { color: var(--color-ink); }
+
+        .numeri-band { background: var(--color-ink); padding: 56px 24px; }
+        .numeri-row {
+            max-width: 900px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center;
+        }
+        .numeri-row .n-val {
+            font-family: 'Archivo', sans-serif; font-size: 2.8rem; font-weight: 900;
+            color: var(--color-orange); letter-spacing: -2px; line-height: 1;
+        }
+        .numeri-row .n-lbl {
+            font-size: 0.78rem; color: rgba(255,255,255,0.5);
+            text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; font-weight: 600;
+        }
+
+        /* Vantaggi */
+        .vantaggi-section { padding: 80px 24px; background: var(--color-band); }
+        .vantaggi-header { max-width: 720px; margin: 0 auto 48px; }
+        .vantaggi-header h2 {
+            font-family: 'Archivo', sans-serif; font-size: 1.8rem; font-weight: 900;
+            letter-spacing: -0.8px; margin-bottom: 12px;
+        }
+        .vantaggi-header p { color: var(--color-body); font-size: 1rem; line-height: 1.65; }
+        .vantaggi-grid {
+            max-width: 1000px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--color-border);
+        }
+        .vantaggio { background: #fff; padding: 36px 28px; }
+        .vantaggio-icon { color: var(--color-orange); margin-bottom: 16px; }
+        .vantaggio h3 { font-family: 'Archivo', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+        .vantaggio p { font-size: 0.88rem; line-height: 1.6; color: var(--color-body); }
+
+        /* Formule noleggio */
+        .formule-section { padding: 80px 24px; background: #fff; }
+        .formule-header { max-width: 720px; margin: 0 auto 48px; }
+        .formule-header h2 {
+            font-family: 'Archivo', sans-serif; font-size: 1.8rem; font-weight: 900;
+            letter-spacing: -0.8px; margin-bottom: 12px;
+        }
+        .formule-header p { color: var(--color-body); font-size: 1rem; line-height: 1.65; }
+        .formule-grid {
+            max-width: 1000px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+        }
+        .formula {
+            border: 1px solid var(--color-border); padding: 36px 28px;
+            transition: all 150ms ease-out;
+        }
+        .formula:hover {
+            border-color: var(--color-orange); transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .formula-tag {
+            font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
+            color: var(--color-orange); text-transform: uppercase;
+            letter-spacing: 2px; font-weight: 700; margin-bottom: 12px;
+        }
+        .formula h3 { font-family: 'Archivo', sans-serif; font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; }
+        .formula p { font-size: 0.88rem; line-height: 1.6; color: var(--color-body); margin-bottom: 16px; }
+        .formula ul { list-style: none; padding: 0; }
+        .formula ul li {
+            font-size: 0.85rem; color: var(--color-body); padding: 6px 0;
+            border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 8px;
+        }
+        .formula ul li:last-child { border: none; }
+        .formula ul li i { color: var(--color-orange); flex-shrink: 0; }
+
+        /* Flotta */
+        .flotta-grid {
+            max-width: 1100px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+        }
+        .flotta-item {
+            background: #fff; border: 1px solid var(--color-border); padding: 24px; text-align: left;
+            transition: all 250ms ease-in-out;
+            display: flex; flex-direction: column;
+            text-decoration: none; color: inherit;
+            position: relative;
+        }
+        .flotta-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-orange);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .flotta-item img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 20px; background: #F5F4F2; padding: 10px; }
+        .flotta-item h3 { font-family: 'Archivo', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--color-ink); margin-bottom: 12px; line-height: 1.2; }
+        .flotta-item ul.specs { list-style: none; padding: 0; margin: 0 0 20px 0; flex-grow: 1; }
+        .flotta-item ul.specs li { font-size: 0.82rem; color: var(--color-body); padding: 6px 0; border-bottom: 1px solid #f2f1ef; }
+        .flotta-item ul.specs li:last-child { border-bottom: none; }
+        .flotta-item ul.specs li strong { color: var(--color-ink); float: right; }
+        .flotta-item .card-btn {
+            display: block; width: 100%; text-align: center; background: var(--color-orange); color: #fff;
+            padding: 12px 0; font-family: 'Archivo', sans-serif; font-size: 0.82rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.5px; margin-top: auto; transition: background 150ms ease;
+        }
+        .flotta-item:hover .card-btn { background: #A64000; }
+
+        .cta-band {
+            background: var(--color-orange); padding: 48px 24px; text-align: center;
+        }
+        .cta-band h2 {
+            color: #fff; font-family: 'Archivo', sans-serif; font-size: 1.6rem;
+            font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px;
+        }
+        .cta-band p { color: rgba(255,255,255,0.8); font-size: 1rem; margin-bottom: 24px; }
+        .cta-band a {
+            display: inline-block; background: #fff; color: var(--color-ink);
+            padding: 14px 36px; font-family: 'Archivo', sans-serif; font-size: 0.875rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+            border-radius: 2px; transition: all 150ms ease-out;
+        }
+        .cta-band a:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+        @media (max-width: 768px) {
+            .page-intro h1 { font-size: 2.2rem; }
+            .numeri-row, .flotta-grid { grid-template-columns: repeat(2, 1fr); }
+            .vantaggi-grid, .formule-grid { grid-template-columns: 1fr; }
+            .full-image img { height: 220px; }
+        }
+    </style>
+</head>
+<body>
+<div style="height:3px;background:var(--color-orange);position:fixed;top:0;left:0;width:100%;z-index:10000;"></div>
+<header class="nav-header" id="nav-header">
+<div class="nav-container">
+<a aria-label="Centro Carrelli" class="nav-logo" href="/">
+<img alt="Centro Carrelli" height="240" src="/assets/logo_centrocarrelli.png" style="height: 45px; width: auto;" width="901"/>
+</a>
+<button aria-controls="nav-menu" aria-expanded="false" aria-label="Apri menu" class="hamburger">
+<span></span><span></span><span></span>
+</button>
+<ul class="nav-menu" id="nav-menu">
+<li class="nav-item"><a href="/carrelli-frontali/">Carrelli Frontali</a></li>
+<li class="nav-item"><a href="/carrelli-magazzino/" style="color:#1A1A1A;font-weight:700;">Carrelli Magazzino</a></li>
+<li class="nav-item"><a href="/transpallet/">Transpallet</a></li>
+<li class="nav-item"><a href="/occasioni/">Occasioni</a></li>
+<li class="nav-item"><a href="/noleggio-carrelli-elevatori/">Noleggio</a></li>
+<li class="nav-item"><a href="/azienda/">Azienda</a></li>
+<li class="nav-item"><a href="/assistenza-manutenzione-muletti/">Assistenza</a></li>
+<li class="nav-item"><a href="/contatti/">Contatti</a></li>
+<li class="nav-cta"><a class="btn btn-primary" href="/contatti/">Richiedi Preventivo</a></li>
+</ul>
+</div>
+</header>
+<main id="main-content">
+<!-- Intro -->
+<div class="page-intro">
+<div class="breadcrumb">Carrelli Magazzino</div>
+<h1>Carrelli da magazzino STILL a Bologna</h1>
+<p class="lead">Retrattili, commissionatori, trilaterali e carrelli VNA: Centro Carrelli fornisce l'intera gamma STILL per l'ottimizzazione del magazzino, dalla movimentazione in corsia stretta al picking in quota fino a 13 metri.</p>
+</div>
+<!-- Foto -->
+<figure class="full-image">
+<img alt="Carrelli da magazzino STILL a Bologna — retrattili e commissionatori" height="1024" src="/assets/carrelli_magazzino_featured.png" width="1024"/>
+<figcaption>Carrelli da magazzino STILL: retrattili, commissionatori e trilaterali per ogni configurazione di stoccaggio</figcaption>
+</figure>
+<!-- Corpo editoriale -->
+<div class="editorial">
+<h2>Ottimizzare lo spazio in magazzino</h2>
+<p>Un magazzino efficiente si costruisce intorno ai mezzi che lo servono. I carrelli da magazzino STILL permettono di <strong>ridurre la larghezza delle corsie</strong>, aumentare la densità di stoccaggio e velocizzare le operazioni di picking e refilling. Che si tratti di un magazzino tradizionale o di un impianto ad alta densità, esiste un modello STILL progettato per quella configurazione.</p>
+<p>Il nostro team analizza il <strong>layout del vostro magazzino</strong>, le altezze delle scaffalature, i flussi di movimentazione e i volumi giornalieri per consigliarvi la soluzione più efficiente — spesso liberando fino al 30% di spazio in più rispetto ai carrelli tradizionali.</p>
+<h2>Tecnologia STILL per il magazzino</h2>
+<p>I carrelli da magazzino STILL integrano <strong>sistemi di navigazione assistita</strong>, pre-selezione automatica dell'altezza di sollevamento, telecamere in quota e ammortizzazione attiva del carico. La telematica neXXt fleet monitora in tempo reale posizione, stato e produttività di ogni mezzo.</p>
+<p>Le <strong>batterie Li-Ion con ricarica intermittente</strong> eliminano la necessità di locali dedicati alla ricarica e consentono operatività continua su più turni senza sostituzione batteria, riducendo i tempi morti e i costi operativi.</p>
+</div>
+<!-- Numeri -->
+<div class="numeri-band">
+<div class="numeri-row">
+<div><div class="n-val">12m</div><div class="n-lbl">Altezza sollevamento</div></div>
+<div><div class="n-val">6+</div><div class="n-lbl">Modelli disponibili</div></div>
+<div><div class="n-val">48h</div><div class="n-lbl">Consegna</div></div>
+<div><div class="n-val">4h</div><div class="n-lbl">Intervento assistenza</div></div>
+</div>
+</div>
+<!-- Vantaggi -->
+<div class="vantaggi-section">
+<div class="vantaggi-header">
+<h2>Perché scegliere i carrelli da magazzino STILL</h2>
+<p>Precisione, altezza, efficienza. I vantaggi che trasformano il vostro magazzino.</p>
+</div>
+<div class="vantaggi-grid">
+<div class="vantaggio">
+<div class="vantaggio-icon"><i data-lucide="maximize" style="width:28px;height:28px;"></i></div>
+<h3>Ottimizzazione spazi</h3>
+<p>Corsie fino a 1.5 m di larghezza con i trilaterali VNA. Più posti pallet nello stesso metro quadro di magazzino.</p>
+</div>
+<div class="vantaggio">
+<div class="vantaggio-icon"><i data-lucide="arrow-up" style="width:28px;height:28px;"></i></div>
+<h3>Altezze elevate</h3>
+<p>Sollevamento fino a 13 metri con i retrattili FM-X. Pre-selezione automatica della quota e telecamera in quota.</p>
+</div>
+<div class="vantaggio">
+<div class="vantaggio-icon"><i data-lucide="crosshair" style="width:28px;height:28px;"></i></div>
+<h3>Precisione millimetrica</h3>
+<p>Sistemi di posizionamento assistito e ammortizzazione attiva del carico per operazioni sicure anche a grandi altezze.</p>
+</div>
+<div class="vantaggio">
+<div class="vantaggio-icon"><i data-lucide="zap" style="width:28px;height:28px;"></i></div>
+<h3>Recupero energetico</h3>
+<p>Recupero energia in discesa e frenata. Batterie Li-Ion con ricarica intermittente per operatività multi-turno continua.</p>
+</div>
+<div class="vantaggio">
+<div class="vantaggio-icon"><i data-lucide="bar-chart-2" style="width:28px;height:28px;"></i></div>
+<h3>Telematica integrata</h3>
+<p>Monitoraggio in tempo reale con STILL neXXt fleet: posizione, produttività, stato batteria e manutenzione predittiva.</p>
+</div>
+<div class="vantaggio">
+<div class="vantaggio-icon"><i data-lucide="wrench" style="width:28px;height:28px;"></i></div>
+<h3>Assistenza certificata</h3>
+<p>15 tecnici certificati STILL con intervento entro 4 ore. Ricambi originali a magazzino per minimizzare i fermi.</p>
+</div>
+</div>
+</div>
+<!-- Formule -->
+<div class="formule-section">
+<div class="formule-header">
+<h2>La gamma carrelli da magazzino STILL</h2>
+<p>Tre famiglie per coprire ogni esigenza di stoccaggio, picking e movimentazione in corsia stretta.</p>
+</div>
+<div class="formule-grid">
+<div class="formula">
+<div class="formula-tag">Retrattile</div>
+<h3>STILL FM-X</h3>
+<p>Il retrattile ad alte prestazioni. Fino a 13 metri di sollevamento con navigazione assistita e cabina panoramica.</p>
+<ul>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Portata 1.0 – 2.5 t</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Altezza fino a 13 m</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Corsia da 2.8 m</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Telecamera in quota</li>
+</ul>
+</div>
+<div class="formula" style="border-color:var(--color-orange);">
+<div class="formula-tag">Commissionatore</div>
+<h3>STILL OPX / OXV</h3>
+<p>Commissionatori per picking di 1° e 2° livello. Piattaforma ergonomica e accesso rapido alla merce.</p>
+<ul>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Picking 1° e 2° livello</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Piattaforma elevabile</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Cabina ergonomica</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Guida intuitiva</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Batteria Li-Ion disponibile</li>
+</ul>
+</div>
+<div class="formula">
+<div class="formula-tag">Trilaterale</div>
+<h3>STILL MX-X</h3>
+<p>Il trilaterale per corsie VNA (Very Narrow Aisle). Massima densità di stoccaggio con operatività in corsie da 1.5 m.</p>
+<ul>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Portata 1.0 – 1.5 t</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Corsie VNA da 1.5 m</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Guida a induzione</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Sollevamento ad alta quota</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Flotta disponibile -->
+<div class="flotta-section" id="catalogo-magazzino">
+<div class="flotta-header">
+<h2>Carrelli da magazzino usati disponibili</h2>
+<p>Una selezione di sollevatori e stoccatori STILL ricondizionati e garantiti, pronti per la consegna.</p>
+</div>
+<div class="flotta-grid">
+<!-- STILL EXV 20 -->
+<a class="flotta-item" href="/carrelli/sollevatore-elettrico-still-exv-20/" target="_blank">
+<span style="position:absolute;top:15px;right:15px;background:#C84E00;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Elettrico</span>
+<img alt="STILL EXV 20" height="848" src="/wp-content/uploads/2026/04/SOLLEVATORE-ELETTRICO-STILL-EXV-20.jpg" width="1059"/>
+<h3>STILL EXV 20</h3>
+<ul class="specs">
+<li>Marca: <strong>STILL</strong></li>
+<li>Modello: <strong>EXV 20</strong></li>
+<li>Matricola: <strong>F22551N01051</strong></li>
+<li>Anno: <strong>2024</strong></li>
+<li>Alimentazione: <strong>Elettrico</strong></li>
+<li>Portata: <strong>2000 kg</strong></li>
+<li>Sollevamento: <strong>3170 mm</strong></li>
+</ul>
+<div class="card-btn">Vedi Dettagli</div>
+</a>
+<!-- STILL EXV 12 -->
+<a class="flotta-item" href="/carrelli/stoccatore-elettrico-still-exv-12/" target="_blank">
+<span style="position:absolute;top:15px;right:15px;background:#C84E00;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Elettrico</span>
+<img alt="STILL EXV 12" height="675" src="/wp-content/uploads/2026/03/SOLLEVATORE-ELETTRICO-STILL-EXV-12-3.jpg" width="1200"/>
+<h3>STILL EXV 12</h3>
+<ul class="specs">
+<li>Marca: <strong>STILL</strong></li>
+<li>Modello: <strong>EXV 12</strong></li>
+<li>Matricola: <strong>F20272J01779</strong></li>
+<li>Anno: <strong>2018</strong></li>
+<li>Alimentazione: <strong>Elettrico</strong></li>
+<li>Portata: <strong>1200 kg</strong></li>
+<li>Sollevamento: <strong>4386 mm</strong></li>
+</ul>
+<div class="card-btn">Vedi Dettagli</div>
+</a>
+<!-- STILL EXV 14 (4800 mm) -->
+<a class="flotta-item" href="/carrelli/stoccatore-elettrico-still-exv-14-3/" target="_blank">
+<span style="position:absolute;top:15px;right:15px;background:#C84E00;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Elettrico</span>
+<img alt="STILL EXV 14" height="675" src="/wp-content/uploads/2026/03/SOLLEVATORE-STILL-EXV-14-2-1.jpg" width="1200"/>
+<h3>STILL EXV 14</h3>
+<ul class="specs">
+<li>Marca: <strong>STILL</strong></li>
+<li>Modello: <strong>EXV 14</strong></li>
+<li>Matricola: <strong>F20323H00792</strong></li>
+<li>Anno: <strong>2017</strong></li>
+<li>Alimentazione: <strong>Elettrico</strong></li>
+<li>Portata: <strong>1400 kg</strong></li>
+<li>Sollevamento: <strong>4800 mm</strong></li>
+</ul>
+<div class="card-btn">Vedi Dettagli</div>
+</a>
+<!-- STILL EXV 14 (4350 mm) -->
+<a class="flotta-item" href="/carrelli/stoccatore-elettrico-still-exv-14-2/" target="_blank">
+<span style="position:absolute;top:15px;right:15px;background:#C84E00;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Elettrico</span>
+<img alt="STILL EXV 14" height="675" src="/wp-content/uploads/2026/03/SOLLEVATORE-STILL-EXV-14-3.jpg" width="1200"/>
+<h3>STILL EXV 14</h3>
+<ul class="specs">
+<li>Marca: <strong>STILL</strong></li>
+<li>Modello: <strong>EXV 14</strong></li>
+<li>Matricola: <strong>F20323H00773</strong></li>
+<li>Anno: <strong>2017</strong></li>
+<li>Alimentazione: <strong>Elettrico</strong></li>
+<li>Portata: <strong>1400 kg</strong></li>
+<li>Sollevamento: <strong>4350 mm</strong></li>
+</ul>
+<div class="card-btn">Vedi Dettagli</div>
+</a>
+<!-- STILL EXV 14 (4266 mm) -->
+<a class="flotta-item" href="/carrelli/still-exv-14-sollevatore-a-colonna/" target="_blank">
+<span style="position:absolute;top:15px;right:15px;background:#C84E00;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Elettrico</span>
+<img alt="STILL EXV 14" height="675" src="/wp-content/uploads/2025/11/SOLLEVATORE-STILL-EXV-14-2.jpg" width="1200"/>
+<h3>STILL EXV 14</h3>
+<ul class="specs">
+<li>Marca: <strong>STILL</strong></li>
+<li>Modello: <strong>EXV 14</strong></li>
+<li>Matricola: <strong>F20323H00763</strong></li>
+<li>Anno: <strong>2017</strong></li>
+<li>Alimentazione: <strong>Elettrico</strong></li>
+<li>Portata: <strong>1400 kg</strong></li>
+<li>Sollevamento: <strong>4266 mm</strong></li>
+</ul>
+<div class="card-btn">Vedi Dettagli</div>
+</a>
+<!-- STILL EXV 12 (Transpallet a colonna) -->
+<a class="flotta-item" href="/carrelli/still-exv-12-transpallet-a-colonna/" target="_blank">
+<span style="position:absolute;top:15px;right:15px;background:#C84E00;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;z-index:2;">Elettrico</span>
+<img alt="STILL EXV 12" height="675" src="/wp-content/uploads/2025/11/TRANSPALLET-STILL-EXV-12-2.jpg" width="1200"/>
+<h3>STILL EXV 12</h3>
+<ul class="specs">
+<li>Marca: <strong>STILL</strong></li>
+<li>Modello: <strong>EXV 12</strong></li>
+<li>Matricola: <strong>F20272V00365-V00387-V00399</strong></li>
+<li>Anno: <strong>2019</strong></li>
+<li>Alimentazione: <strong>Elettrico</strong></li>
+<li>Portata: <strong>1200 kg</strong></li>
+<li>Sollevamento: <strong>4386 mm</strong></li>
+</ul>
+<div class="card-btn">Vedi Dettagli</div>
+</a>
+</div>
+</div>
+<!-- CTA -->
+<div class="cta-band">
+<h2>Cerchi un carrello da magazzino?</h2>
+<p>Richiedi un preventivo personalizzato. Ti rispondiamo entro 24 ore.</p>
+<a href="/contatti/">Richiedi preventivo</a>
+</div>
+<!-- Footer -->
+</main>
+<footer class="footer-bottom">
+<div class="footer-container">
+<p>© 2026 Centro Carrelli S.r.l. - Via R. Viganò 10, Bentivoglio (BO) - P.IVA 01234567890. Concessionario STILL Ufficiale.</p>
+<ul class="footer-links" style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
+<li><a href="/news/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">News</a></li>
+<li><a href="/newsletter/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Newsletter</a></li>
+<li><a href="/privacy-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Privacy</a></li>
+<li><a href="/mappa-sito/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Mappa sito</a></li>
+<li><a href="/cookie-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Cookie</a></li>
+<li><a href="/contatti/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Contatti</a></li>
+<li><a href="/lavora-con-noi/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Lavora con noi</a></li>
+</ul>
+</div>
+</footer>
+<script>
+        if (typeof lucide !== 'undefined') { lucide.createIcons(); };
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        window.addEventListener('scroll', function() {
+            document.querySelector('.nav-header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+</body>
+</html>

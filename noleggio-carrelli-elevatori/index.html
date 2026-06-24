@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<script>
+(function() {
+    if (window.location.hostname.includes('github.io')) {
+        var pathPrefix = '/centrocarrelli';
+        
+        function rewriteAttr(el, attr) {
+            var val = el.getAttribute(attr);
+            if (val && val.startsWith('/') && !val.startsWith(pathPrefix + '/') && !val.startsWith('//')) {
+                el.setAttribute(attr, pathPrefix + val);
+            }
+        }
+        
+        function processElement(el) {
+            if (el.tagName === 'LINK') {
+                rewriteAttr(el, 'href');
+            } else if (el.tagName === 'SCRIPT' || el.tagName === 'IMG' || el.tagName === 'IFRAME') {
+                rewriteAttr(el, 'src');
+            } else if (el.tagName === 'A') {
+                rewriteAttr(el, 'href');
+            }
+        }
+        
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        processElement(node);
+                        var children = node.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]');
+                        children.forEach(processElement);
+                    }
+                });
+            });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        
+        document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        });
+    }
+})();
+</script>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Noleggio Carrelli Elevatori Bologna — Centro Carrelli</title>
+<meta content="Noleggio carrelli elevatori a Bologna. Breve e lungo termine, manutenzione inclusa, flotta STILL. Soluzioni flessibili per ogni esigenza." name="description"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css?v=1.5" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+        :root {
+            --color-orange: #C84E00;
+            --color-ink: #1A1A1A;
+            --color-body: #5C5B59;
+            --color-border: #E6E5E3;
+            --color-band: #F2F1EF;
+        }
+
+        .page-intro {
+            padding: 140px 24px 60px;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        .page-intro .breadcrumb {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--color-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 32px;
+        }
+        .page-intro h1 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            color: var(--color-ink);
+            margin-bottom: 28px;
+            border: none; padding: 0; display: block;
+        }
+        .page-intro .lead {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--color-body);
+            border-left: 3px solid var(--color-orange);
+            padding-left: 20px;
+        }
+
+        .full-image { max-width: 1200px; margin: 40px auto 0; padding: 0 24px; }
+        .full-image img { width: 100%; height: 360px; object-fit: cover; display: block; }
+        .full-image figcaption {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem; color: var(--color-body);
+            padding: 10px 0; border-bottom: 1px solid var(--color-border);
+        }
+
+        .editorial { max-width: 720px; margin: 0 auto; padding: 60px 24px; }
+        .editorial h2 {
+            font-family: 'Archivo', sans-serif; font-size: 1.8rem; font-weight: 900;
+            letter-spacing: -0.8px; color: var(--color-ink); margin-bottom: 20px; margin-top: 48px;
+        }
+        .editorial h2:first-child { margin-top: 0; }
+        .editorial p { font-size: 1.05rem; line-height: 1.8; color: var(--color-body); margin-bottom: 20px; }
+        .editorial strong { color: var(--color-ink); }
+
+        .numeri-band { background: var(--color-ink); padding: 56px 24px; }
+        .numeri-row {
+            max-width: 900px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center;
+        }
+        .numeri-row .n-val {
+            font-family: 'Archivo', sans-serif; font-size: 2.8rem; font-weight: 900;
+            color: var(--color-orange); letter-spacing: -2px; line-height: 1;
+        }
+        .numeri-row .n-lbl {
+            font-size: 0.78rem; color: rgba(255,255,255,0.5);
+            text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; font-weight: 600;
+        }
+
+        /* Vantaggi */
+        .vantaggi-section { padding: 80px 24px; background: var(--color-band); }
+        .vantaggi-header { max-width: 720px; margin: 0 auto 48px; }
+        .vantaggi-header h2 {
+            font-family: 'Archivo', sans-serif; font-size: 1.8rem; font-weight: 900;
+            letter-spacing: -0.8px; margin-bottom: 12px;
+        }
+        .vantaggi-header p { color: var(--color-body); font-size: 1rem; line-height: 1.65; }
+        .vantaggi-grid {
+            max-width: 1000px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--color-border);
+        }
+        .vantaggio { background: #fff; padding: 36px 28px; }
+        .vantaggio-icon { color: var(--color-orange); margin-bottom: 16px; }
+        .vantaggio h3 { font-family: 'Archivo', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+        .vantaggio p { font-size: 0.88rem; line-height: 1.6; color: var(--color-body); }
+
+        /* Formule noleggio */
+        .formule-section { padding: 80px 24px; background: #fff; }
+        .formule-header { max-width: 720px; margin: 0 auto 48px; }
+        .formule-header h2 {
+            font-family: 'Archivo', sans-serif; font-size: 1.8rem; font-weight: 900;
+            letter-spacing: -0.8px; margin-bottom: 12px;
+        }
+        .formule-header p { color: var(--color-body); font-size: 1rem; line-height: 1.65; }
+        .formule-grid {
+            max-width: 1000px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+        }
+        .formula {
+            border: 1px solid var(--color-border); padding: 36px 28px;
+            transition: all 150ms ease-out;
+        }
+        .formula:hover {
+            border-color: var(--color-orange); transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .formula-tag {
+            font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
+            color: var(--color-orange); text-transform: uppercase;
+            letter-spacing: 2px; font-weight: 700; margin-bottom: 12px;
+        }
+        .formula h3 { font-family: 'Archivo', sans-serif; font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; }
+        .formula p { font-size: 0.88rem; line-height: 1.6; color: var(--color-body); margin-bottom: 16px; }
+        .formula ul { list-style: none; padding: 0; }
+        .formula ul li {
+            font-size: 0.85rem; color: var(--color-body); padding: 6px 0;
+            border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 8px;
+        }
+        .formula ul li:last-child { border: none; }
+        .formula ul li i { color: var(--color-orange); flex-shrink: 0; }
+
+        /* Flotta */
+        .flotta-section { padding: 80px 24px; background: var(--color-band); }
+        .flotta-header { max-width: 720px; margin: 0 auto 48px; }
+        .flotta-header h2 {
+            font-family: 'Archivo', sans-serif; font-size: 1.8rem; font-weight: 900;
+            letter-spacing: -0.8px; margin-bottom: 12px;
+        }
+        .flotta-header p { color: var(--color-body); font-size: 1rem; line-height: 1.65; }
+        .flotta-grid {
+            max-width: 1000px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+        }
+        .flotta-item {
+            background: #fff; border: 1px solid var(--color-border); padding: 24px; text-align: center;
+        }
+        .flotta-item img { width: 100%; height: 120px; object-fit: contain; margin-bottom: 12px; }
+        .flotta-item h4 { font-family: 'Archivo', sans-serif; font-size: 0.9rem; font-weight: 800; margin-bottom: 4px; }
+        .flotta-item p { font-size: 0.78rem; color: var(--color-body); }
+
+        .cta-band {
+            background: var(--color-orange); padding: 48px 24px; text-align: center;
+        }
+        .cta-band h2 {
+            color: #fff; font-family: 'Archivo', sans-serif; font-size: 1.6rem;
+            font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px;
+        }
+        .cta-band p { color: rgba(255,255,255,0.8); font-size: 1rem; margin-bottom: 24px; }
+        .cta-band a {
+            display: inline-block; background: #fff; color: var(--color-ink);
+            padding: 14px 36px; font-family: 'Archivo', sans-serif; font-size: 0.875rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+            border-radius: 2px; transition: all 150ms ease-out;
+        }
+        .cta-band a:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+        @media (max-width: 768px) {
+            .page-intro h1 { font-size: 2.2rem; }
+            .numeri-row, .flotta-grid { grid-template-columns: repeat(2, 1fr); }
+            .vantaggi-grid, .formule-grid { grid-template-columns: 1fr; }
+            .full-image img { height: 220px; }
+        }
+    </style>
+</head>
+<body>
+<div style="height:3px;background:var(--color-orange);position:fixed;top:0;left:0;width:100%;z-index:10000;"></div>
+<header class="nav-header" id="nav-header">
+<div class="nav-container">
+<a aria-label="Centro Carrelli" class="nav-logo" href="/">
+<img alt="Centro Carrelli" height="240" src="/assets/logo_centrocarrelli.png" style="height: 45px; width: auto;" width="901"/>
+</a>
+<button aria-controls="nav-menu" aria-expanded="false" aria-label="Apri menu" class="hamburger">
+<span></span><span></span><span></span>
+</button>
+<ul class="nav-menu" id="nav-menu">
+<li class="nav-item"><a href="/carrelli-frontali/">Carrelli Frontali</a></li>
+<li class="nav-item"><a href="/carrelli-magazzino/">Carrelli Magazzino</a></li>
+<li class="nav-item"><a href="/transpallet/">Transpallet</a></li>
+<li class="nav-item"><a href="/occasioni/">Occasioni</a></li>
+<li class="nav-item"><a href="/noleggio-carrelli-elevatori/" style="color:#1A1A1A;font-weight:700;">Noleggio</a></li>
+<li class="nav-item"><a href="/azienda/">Azienda</a></li>
+<li class="nav-item"><a href="/assistenza-manutenzione-muletti/">Assistenza</a></li>
+<li class="nav-item"><a href="/contatti/">Contatti</a></li>
+<li class="nav-cta"><a class="btn btn-primary" href="/contatti/">Richiedi Preventivo</a></li>
+</ul>
+</div>
+</header>
+<main id="main-content">
+<!-- Intro -->
+<div class="page-intro">
+<div class="breadcrumb">Noleggio</div>
+<h1>Noleggio carrelli elevatori a Bologna</h1>
+<p class="lead">Per rispondere alle esigenze di chi necessita di un carrello elevatore a breve o lungo termine, Centro Carrelli fornisce noleggio di carrelli nuovi e usati STILL con manutenzione inclusa e canone fisso.</p>
+</div>
+<!-- Foto -->
+<figure class="full-image">
+<img alt="Carrello elevatore STILL a noleggio Bologna" height="1024" src="/assets/hero_forklift.png" width="1024"/>
+<figcaption>La nostra flotta a noleggio comprende carrelli frontali, magazzino e transpallet STILL</figcaption>
+</figure>
+<!-- Corpo editoriale -->
+<div class="editorial">
+<h2>Perché noleggiare invece di acquistare</h2>
+<p>Il noleggio è la soluzione ideale per le aziende che vogliono <strong>mantenere la flessibilità operativa</strong> senza immobilizzare capitale. Non ci sono sorprese: il canone mensile include manutenzione ordinaria e straordinaria, e potete sostituire o ampliare la flotta in base alle esigenze stagionali.</p>
+<p>Con un parco macchine sempre aggiornato ai <strong>più recenti modelli STILL</strong>, i vostri operatori lavorano con carrelli efficienti, sicuri e a basso consumo energetico. E se un mezzo si guasta, il nostro team interviene entro 4 ore.</p>
+<h2>Risparmio garantito</h2>
+<p>I clienti che passano dal possesso al noleggio riducono mediamente i <strong>costi di gestione della flotta del 20-30%</strong>. Niente costi imprevisti di riparazione, niente ammortamenti, niente gestione della rivendita. Un costo fisso, prevedibile, deducibile al 100%.</p>
+</div>
+<!-- Numeri -->
+<div class="numeri-band">
+<div class="numeri-row">
+<div><div class="n-val">200+</div><div class="n-lbl">Carrelli a noleggio</div></div>
+<div><div class="n-val">30%</div><div class="n-lbl">Risparmio medio</div></div>
+<div><div class="n-val">48h</div><div class="n-lbl">Consegna rapida</div></div>
+<div><div class="n-val">100%</div><div class="n-lbl">Deducibilità fiscale</div></div>
+</div>
+</div>
+<!-- Vantaggi -->
+<div class="vantaggi-section">
+<div class="vantaggi-header">
+<h2>I vantaggi del noleggio Centro Carrelli</h2>
+<p>Tutto incluso, nessuna sorpresa. Ecco perché oltre 200 aziende ci scelgono.</p>
+</div>
+<div class="vantaggi-grid">
+<div class="vantaggio">
+<div class="vantaggio-icon"><i data-lucide="piggy-bank" style="width:28px;height:28px;"></i></div>
+<h3>Canone fisso tutto incluso</h3>
+<p>Manutenzione ordinaria e straordinaria, assicurazione e ricambi originali. Un solo costo mensile prevedibile.</p>
+</div>
+<div class="vantaggio">
+<div class="vantaggio-icon"><i data-lucide="refresh-cw" style="width:28px;height:28px;"></i></div>
+<h3>Flessibilità totale</h3>
+<p>Amplia, riduci o sostituisci la flotta quando vuoi. Contratti adattabili alle esigenze stagionali.</p>
+</div>
+<div class="vantaggio">
+<div class="vantaggio-icon"><i data-lucide="trending-up" style="width:28px;height:28px;"></i></div>
+<h3>Flotta sempre nuova</h3>
+<p>A fine contratto il carrello torna a noi e tu ricevi un modello aggiornato. Tecnologia sempre all'avanguardia.</p>
+</div>
+<div class="vantaggio">
+<div class="vantaggio-icon"><i data-lucide="wrench" style="width:28px;height:28px;"></i></div>
+<h3>Assistenza garantita</h3>
+<p>15 tecnici certificati STILL con intervento entro 4 ore. I fermi macchina non sono un'opzione.</p>
+</div>
+<div class="vantaggio">
+<div class="vantaggio-icon"><i data-lucide="file-text" style="width:28px;height:28px;"></i></div>
+<h3>Deducibilità 100%</h3>
+<p>Il canone di noleggio è interamente deducibile. Nessun ammortamento, nessuna gestione patrimoniale.</p>
+</div>
+<div class="vantaggio">
+<div class="vantaggio-icon"><i data-lucide="truck" style="width:28px;height:28px;"></i></div>
+<h3>Consegna in 48h</h3>
+<p>Carrelli disponibili a magazzino, pronti per la consegna e la messa in servizio in tempi rapidi.</p>
+</div>
+</div>
+</div>
+<!-- Formule -->
+<div class="formule-section">
+<div class="formule-header">
+<h2>Le nostre formule di noleggio</h2>
+<p>Tre soluzioni per tre esigenze diverse. Tutte con manutenzione STILL inclusa.</p>
+</div>
+<div class="formule-grid">
+<div class="formula">
+<div class="formula-tag">Breve termine</div>
+<h3>Spot Rental</h3>
+<p>Da 1 giorno a 12 mesi. Ideale per picchi stagionali, cantieri temporanei o sostituzione mezzi in riparazione.</p>
+<ul>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Da 1 giorno a 12 mesi</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Consegna in 48h</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Assicurazione inclusa</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Sostituzione in caso di guasto</li>
+</ul>
+</div>
+<div class="formula" style="border-color:var(--color-orange);">
+<div class="formula-tag">Lungo termine</div>
+<h3>Full Rental</h3>
+<p>Da 24 a 60 mesi. La formula più scelta. Canone fisso competitivo, zero pensieri.</p>
+<ul>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> 24–60 mesi</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Manutenzione full service</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Ricambi originali inclusi</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Canone fisso mensile</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Sostituzione a fine contratto</li>
+</ul>
+</div>
+<div class="formula">
+<div class="formula-tag">Flotte</div>
+<h3>Fleet Solution</h3>
+<p>Per flotte da 5+ carrelli. Gestione integrata con analisi dei costi e ottimizzazione continua.</p>
+<ul>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Tutto il piano Full Rental</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Account manager dedicato</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Report utilizzo trimestrale</li>
+<li><i data-lucide="check" style="width:16px;height:16px;"></i> Tariffe volume scontate</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Flotta disponibile -->
+<div class="flotta-section">
+<div class="flotta-header">
+<h2>Carrelli disponibili a noleggio</h2>
+<p>Una selezione della flotta STILL disponibile per il noleggio immediato.</p>
+</div>
+<div class="flotta-grid">
+<div class="flotta-item">
+<img alt="STILL RX 20" height="1024" src="/assets/hero_forklift.png" width="1024"/>
+<h3>RX 20</h3>
+<p>Frontale elettrico</p>
+</div>
+<div class="flotta-item">
+<img alt="STILL ECH 12 C" height="265" src="/assets/ech12c_still.jpg" width="265"/>
+<h3>ECH 12 C</h3>
+<p>Transpallet con operatore</p>
+</div>
+<div class="flotta-item">
+<img alt="STILL EXH 14 C" height="1024" src="/assets/exh14c_transpallet.png" width="1024"/>
+<h3>EXH 14 C</h3>
+<p>Transpallet elettrico</p>
+</div>
+<div class="flotta-item">
+<img alt="STILL ECH 15 C" height="700" src="/assets/ech15c_still.jpg" width="700"/>
+<h3>ECH 15 C</h3>
+<p>Transpallet con operatore</p>
+</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="cta-band">
+<h2>Vuoi noleggiare un carrello elevatore?</h2>
+<p>Richiedi un preventivo personalizzato. Ti rispondiamo entro 24 ore.</p>
+<a href="/contatti/">Richiedi preventivo noleggio</a>
+</div>
+<!-- Footer -->
+</main>
+<footer class="footer-bottom">
+<div class="footer-container">
+<p>© 2026 Centro Carrelli S.r.l. - Via R. Viganò 10, Bentivoglio (BO) - P.IVA 01234567890. Concessionario STILL Ufficiale.</p>
+<ul class="footer-links" style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
+<li><a href="/news/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">News</a></li>
+<li><a href="/newsletter/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Newsletter</a></li>
+<li><a href="/privacy-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Privacy</a></li>
+<li><a href="/mappa-sito/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Mappa sito</a></li>
+<li><a href="/cookie-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Cookie</a></li>
+<li><a href="/contatti/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Contatti</a></li>
+<li><a href="/lavora-con-noi/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Lavora con noi</a></li>
+</ul>
+</div>
+</footer>
+<script>
+        if (typeof lucide !== 'undefined') { lucide.createIcons(); };
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        window.addEventListener('scroll', function() {
+            document.querySelector('.nav-header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+</body>
+</html>

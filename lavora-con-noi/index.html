@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<script>
+(function() {
+    if (window.location.hostname.includes('github.io')) {
+        var pathPrefix = '/centrocarrelli';
+        
+        function rewriteAttr(el, attr) {
+            var val = el.getAttribute(attr);
+            if (val && val.startsWith('/') && !val.startsWith(pathPrefix + '/') && !val.startsWith('//')) {
+                el.setAttribute(attr, pathPrefix + val);
+            }
+        }
+        
+        function processElement(el) {
+            if (el.tagName === 'LINK') {
+                rewriteAttr(el, 'href');
+            } else if (el.tagName === 'SCRIPT' || el.tagName === 'IMG' || el.tagName === 'IFRAME') {
+                rewriteAttr(el, 'src');
+            } else if (el.tagName === 'A') {
+                rewriteAttr(el, 'href');
+            }
+        }
+        
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        processElement(node);
+                        var children = node.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]');
+                        children.forEach(processElement);
+                    }
+                });
+            });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        
+        document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        });
+    }
+})();
+</script>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lavora con noi — Centro Carrelli Bologna</title>
+<meta content="Scopri le opportunità di lavoro presso Centro Carrelli. Unisciti al nostro team dinamico e professionale." name="description"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css?v=1.5" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+        :root {
+            --color-orange: #C84E00;
+            --color-ink: #1A1A1A;
+            --color-body: #5C5B59;
+            --color-border: #E6E5E3;
+            --color-band: #F2F1EF;
+        }
+
+        .page-intro {
+            padding: 140px 24px 60px;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        .page-intro .breadcrumb {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--color-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 32px;
+        }
+        .page-intro h1 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            color: var(--color-ink);
+            margin-bottom: 28px;
+            border: none; padding: 0; display: block;
+        }
+        .page-intro .lead {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--color-body);
+            border-left: 3px solid var(--color-orange);
+            padding-left: 20px;
+        }
+
+        .full-image { max-width: 1200px; margin: 40px auto 0; padding: 0 24px; }
+        .full-image img { width: 100%; height: 360px; object-fit: cover; display: block; }
+        .full-image figcaption {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem; color: var(--color-body);
+            padding: 10px 0; border-bottom: 1px solid var(--color-border);
+        }
+
+        .editorial { max-width: 720px; margin: 0 auto; padding: 60px 24px; }
+        .editorial h2 {
+            font-family: 'Archivo', sans-serif; font-size: 1.8rem; font-weight: 900;
+            letter-spacing: -0.8px; color: var(--color-ink); margin-bottom: 20px; margin-top: 48px;
+        }
+        .editorial h2:first-child { margin-top: 0; }
+        .editorial p { font-size: 1.05rem; line-height: 1.8; color: var(--color-body); margin-bottom: 20px; }
+        .editorial strong { color: var(--color-ink); }
+
+        /* Form candidatura */
+        .job-form-section { max-width: 720px; margin: 0 auto; padding: 0 24px 60px; }
+        .job-form-section h2 {
+            font-family: 'Archivo', sans-serif; font-size: 1.8rem; font-weight: 900;
+            letter-spacing: -0.8px; color: var(--color-ink); margin-bottom: 28px;
+        }
+        .job-form { border: 1px solid var(--color-border); padding: 36px; }
+        .job-form .form-group { margin-bottom: 16px; }
+        .job-form label {
+            display: block; font-size: 0.85rem; font-weight: 700;
+            color: var(--color-ink); margin-bottom: 6px;
+        }
+        .job-form input[type="text"],
+        .job-form input[type="email"],
+        .job-form input[type="tel"],
+        .job-form textarea {
+            width: 100%; padding: 12px 14px; border: 1px solid var(--color-border);
+            font-family: 'Archivo', sans-serif; font-size: 0.9rem; color: var(--color-ink);
+            outline: none; box-sizing: border-box;
+        }
+        .job-form input:focus, .job-form textarea:focus { border-color: var(--color-orange); }
+        .job-form textarea { resize: vertical; min-height: 100px; }
+        .job-form input[type="file"] {
+            font-family: 'Archivo', sans-serif; font-size: 0.85rem; color: var(--color-body);
+        }
+        .job-form .form-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+        }
+        .job-form .form-check {
+            display: flex; gap: 8px; align-items: flex-start; margin-bottom: 16px;
+        }
+        .job-form .form-check label { font-size: 0.78rem; line-height: 1.5; color: var(--color-body); font-weight: 400; }
+        .job-form .form-check a { color: var(--color-orange); }
+        .job-form .legal-note {
+            font-size: 0.75rem; line-height: 1.6; color: var(--color-body);
+            margin-bottom: 20px; padding: 12px; background: var(--color-band);
+        }
+        .job-form .form-quiz { margin-bottom: 20px; }
+        .job-form .form-quiz label { font-weight: 700; margin-bottom: 4px; }
+        .job-form .form-quiz span { font-size: 0.85rem; color: var(--color-body); display: block; margin-bottom: 6px; }
+        .job-form .form-quiz input { width: 200px; }
+        .job-form .btn-submit {
+            display: block; width: 100%; background: var(--color-orange); color: #fff;
+            padding: 16px; font-family: 'Archivo', sans-serif; font-size: 0.95rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+            border: none; border-radius: 2px; cursor: pointer; transition: all 150ms;
+        }
+        .job-form .btn-submit:hover { background: #A64000; }
+
+        @media (max-width: 768px) {
+            .page-intro h1 { font-size: 2.2rem; }
+            .full-image img { height: 220px; }
+            .job-form .form-row { grid-template-columns: 1fr; }
+            .job-form { padding: 24px 20px; }
+        }
+    </style>
+</head>
+<body>
+<div style="height:3px;background:var(--color-orange);position:fixed;top:0;left:0;width:100%;z-index:10000;"></div>
+<header class="nav-header" id="nav-header">
+<div class="nav-container">
+<a aria-label="Centro Carrelli" class="nav-logo" href="/">
+<img alt="Centro Carrelli" height="240" src="/assets/logo_centrocarrelli.png" style="height: 45px;width:auto;" width="901"/>
+</a>
+<button aria-controls="nav-menu" aria-expanded="false" aria-label="Apri menu" class="hamburger"><span></span><span></span><span></span></button>
+<ul class="nav-menu" id="nav-menu">
+<li class="nav-item"><a href="/carrelli-frontali/">Carrelli Frontali</a></li>
+<li class="nav-item"><a href="/carrelli-magazzino/">Carrelli Magazzino</a></li>
+<li class="nav-item"><a href="/transpallet/">Transpallet</a></li>
+<li class="nav-item"><a href="/occasioni/">Occasioni</a></li>
+<li class="nav-item"><a href="/noleggio-carrelli-elevatori/">Noleggio</a></li>
+<li class="nav-item"><a href="/azienda/">Azienda</a></li>
+<li class="nav-item"><a href="/assistenza-manutenzione-muletti/">Assistenza</a></li>
+<li class="nav-item"><a href="/contatti/">Contatti</a></li>
+<li class="nav-cta"><a class="btn btn-primary" href="/contatti/">Richiedi Preventivo</a></li>
+</ul>
+</div>
+</header>
+<main id="main-content">
+<!-- Intro -->
+<div class="page-intro">
+<div class="breadcrumb">Lavora con noi</div>
+<h1>Lavora con noi</h1>
+<p class="lead">Sei alla ricerca di un'opportunità di lavoro in un'azienda solida e dinamica? Centro Carrelli sta cercando nuovi talenti per ampliare il suo team!</p>
+</div>
+<!-- Foto -->
+<figure class="full-image">
+<img alt="Centro Carrelli assume - Entra nel nostro team" height="1080" src="/assets/centro-carrelli-job.jpg" width="1080"/>
+<figcaption>Centro Carrelli assume — Concessionario STILL a Bentivoglio (BO)</figcaption>
+</figure>
+<!-- Contenuto -->
+<div class="editorial">
+<h2>Centro Carrelli assume! Entra nel nostro team</h2>
+<p><strong>📌 Posizione aperta:</strong> Tecnico riparatore e manutentore di carrelli elevatori, con o senza esperienza</p>
+<p><strong>📍 Luogo:</strong> Bentivoglio Bologna</p>
+<p><strong>📅 Contratto:</strong> Tempo indeterminato</p>
+</div>
+<!-- Form candidatura -->
+<div class="job-form-section">
+<h2>Candidati ora</h2>
+<div class="job-form">
+<form>
+<div class="form-row">
+<div class="form-group">
+<label for="job-nome">Nome *</label>
+<input id="job-nome" name="nome" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="job-cognome">Cognome *</label>
+<input id="job-cognome" name="cognome" required="" type="text"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="job-email">Email *</label>
+<input id="job-email" name="email" required="" type="email"/>
+</div>
+<div class="form-group">
+<label for="job-tel">Telefono</label>
+<input id="job-tel" name="tel" type="tel"/>
+</div>
+</div>
+<div class="form-group">
+<label for="job-cv">Carica il tuo CV (pdf, max. 5mb) *</label>
+<input accept=".pdf" id="job-cv" name="cv" required="" type="file"/>
+</div>
+<div class="form-group">
+<label for="job-msg">La tua presentazione</label>
+<textarea id="job-msg" name="messaggio" placeholder="Due parole su di te"></textarea>
+</div>
+<div class="form-check">
+<input id="job-privacy" required="" type="checkbox"/>
+<label for="job-privacy">Letta l'<a href="/privacy-policy/" target="_blank">Informativa Privacy</a>, acconsento alla gestione e all'utilizzo dei dati contenuti nel mio CV che allego.</label>
+</div>
+<div class="legal-note">La ricerca è rivolta ad entrambi i sessi, ai sensi delle leggi 903/77 e 125/91, e a persone di tutte le età e tutte le nazionalità, ai sensi dei decreti legislativi 215/03 e 216/03</div>
+<div class="form-quiz">
+<label>Controllo Antispam</label>
+<span>Quanto fa 20 diviso 10? (rispondi in lettere)</span>
+<input name="quiz" required="" type="text"/>
+</div>
+<button class="btn-submit" type="submit">Invia</button>
+</form>
+</div>
+</div>
+<!-- Footer -->
+</main>
+<footer class="footer-bottom">
+<div class="footer-container">
+<p>© 2026 Centro Carrelli S.r.l. - Via R. Viganò 10, Bentivoglio (BO) - P.IVA 01234567890. Concessionario STILL Ufficiale.</p>
+<ul class="footer-links" style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
+<li><a href="/news/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">News</a></li>
+<li><a href="/newsletter/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Newsletter</a></li>
+<li><a href="/privacy-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Privacy</a></li>
+<li><a href="/mappa-sito/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Mappa sito</a></li>
+<li><a href="/cookie-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Cookie</a></li>
+<li><a href="/contatti/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Contatti</a></li>
+<li><a href="/lavora-con-noi/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Lavora con noi</a></li>
+</ul>
+</div>
+</footer>
+<script>
+        if (typeof lucide !== 'undefined') { lucide.createIcons(); };
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        window.addEventListener('scroll', function() {
+            document.querySelector('.nav-header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+</body>
+</html>

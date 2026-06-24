@@ -671,9 +671,113 @@ function initForkliftFinder() {
     }
 
     // Dynamically populate ALL filter dropdowns from actual PRODUCTS data
-    // Make populateFilters a no-op function to keep static HTML values and counts
     function populateFilters() {
-        console.log('[Finder] populateFilters: keeping static HTML values and official counts.');
+        // --- Categoria (with counts) ---
+        if (selectCategoria) {
+            const counts = {
+                tutti: PRODUCTS.length,
+                frontali: PRODUCTS.filter(p => p.specs.tipologia === 'carrelli-frontali').length,
+                magazzino: PRODUCTS.filter(p => p.specs.tipologia === 'carrelli-magazzino').length,
+                transpallet: PRODUCTS.filter(p => p.specs.tipologia === 'transpallet').length,
+                occasioni: PRODUCTS.filter(p => p.isOccasione).length
+            };
+            selectCategoria.innerHTML = '';
+            selectCategoria.add(new Option(`Tutti i prodotti (${counts.tutti})`, ''));
+            if (counts.frontali > 0) selectCategoria.add(new Option(`Carrelli Frontali (${counts.frontali})`, 'carrelli-frontali'));
+            if (counts.magazzino > 0) selectCategoria.add(new Option(`Carrelli magazzino (${counts.magazzino})`, 'carrelli-magazzino'));
+            if (counts.transpallet > 0) selectCategoria.add(new Option(`Transpallet (${counts.transpallet})`, 'transpallet'));
+            if (counts.occasioni > 0) selectCategoria.add(new Option(`Occasioni (${counts.occasioni})`, 'occasioni'));
+        }
+
+        // --- Anno (sorted descending, only years that exist) ---
+        if (selectAnno) {
+            const years = [...new Set(PRODUCTS.map(p => p.specs.anno).filter(Boolean))];
+            years.sort((a, b) => parseInt(b) - parseInt(a));
+            selectAnno.innerHTML = '';
+            selectAnno.add(new Option('Anno', ''));
+            years.forEach(y => selectAnno.add(new Option(y, y)));
+        }
+
+        // --- Alimentazione (only types that exist) ---
+        if (selectAlimentazione) {
+            const hasElettrico = PRODUCTS.some(p => {
+                const a = p.specs.alimentazione.toLowerCase();
+                return a === 'elettrico' || a.includes('litio');
+            });
+            const hasDiesel = PRODUCTS.some(p => {
+                const a = p.specs.alimentazione.toLowerCase();
+                return a === 'diesel' || a === 'gpl';
+            });
+            const hasManuale = PRODUCTS.some(p => p.specs.alimentazione.toLowerCase() === 'manuale');
+
+            selectAlimentazione.innerHTML = '';
+            selectAlimentazione.add(new Option('Tutte le alimentazioni', ''));
+            if (hasElettrico) selectAlimentazione.add(new Option('Elettrico', 'Elettrico'));
+            if (hasDiesel) selectAlimentazione.add(new Option('Diesel / GPL', 'Diesel'));
+            if (hasManuale) selectAlimentazione.add(new Option('Manuale', 'Manuale'));
+        }
+
+        // --- Portata (only ranges that contain products) ---
+        if (selectPortata) {
+            const ranges = [
+                { label: '1000 - 2000 kg', value: '1000+2000' },
+                { label: '2000 - 3000 kg', value: '2000+3000' },
+                { label: '3000 - 4000 kg', value: '3000+4000' },
+                { label: '4000 - 5000 kg', value: '4000+5000' },
+                { label: '5000 - 6000 kg', value: '5000+6000' },
+                { label: '6000 - 7000 kg', value: '6000+7000' },
+                { label: '7000 - 8000 kg', value: '7000+8000' },
+                { label: '8000 - 9000 kg', value: '8000+9000' }
+            ];
+            selectPortata.innerHTML = '';
+            selectPortata.add(new Option('Portata Kg.', ''));
+            ranges.forEach(r => {
+                const parts = r.value.split('+');
+                const min = parseInt(parts[0], 10);
+                const max = parseInt(parts[1], 10);
+                const count = PRODUCTS.filter(p => {
+                    const pv = parseVal(p.specs.portata);
+                    return pv >= min && pv <= max;
+                }).length;
+                if (count > 0) selectPortata.add(new Option(r.label, r.value));
+            });
+        }
+
+        // --- Sollevamento (only ranges that contain products) ---
+        if (selectSollevamento) {
+            const ranges = [
+                { label: '0 - 2000 mm', value: '0+2000' },
+                { label: '2000 - 3000 mm', value: '2000+3000' },
+                { label: '3000 - 4000 mm', value: '3000+4000' },
+                { label: '4000 - 5000 mm', value: '4000+5000' },
+                { label: '5000 - 6000 mm', value: '5000+6000' },
+                { label: '6000 - 7000 mm', value: '6000+7000' },
+                { label: '7000 - 8000 mm', value: '7000+8000' }
+            ];
+            selectSollevamento.innerHTML = '';
+            selectSollevamento.add(new Option('Sollevamento mm.', ''));
+            ranges.forEach(r => {
+                const parts = r.value.split('-');
+                const min = parseInt(parts[0], 10);
+                const max = parseInt(parts[1], 10);
+                const count = PRODUCTS.filter(p => {
+                    const sv = parseVal(p.specs.altezza);
+                    return sv >= min && sv <= max;
+                }).length;
+                if (count > 0) selectSollevamento.add(new Option(r.label, r.value));
+            });
+        }
+
+        // --- Marca (only brands that exist) ---
+        if (selectMarca) {
+            const brands = [...new Set(PRODUCTS.map(p => p.specs.marca).filter(Boolean))];
+            brands.sort();
+            selectMarca.innerHTML = '';
+            selectMarca.add(new Option('Tutte le marche', ''));
+            brands.forEach(b => selectMarca.add(new Option(b, b)));
+        }
+
+        console.log('[Finder] Filters populated dynamically from', PRODUCTS.length, 'products');
     }
 
     function renderProducts() {
@@ -787,6 +891,8 @@ function initForkliftFinder() {
             return;
         }
 
+        const pathPrefix = window.location.hostname.includes('github.io') ? '/centrocarrelli' : '';
+
         // Add cards to grid
         filtered.forEach(prod => {
             const card = document.createElement('div');
@@ -803,10 +909,24 @@ function initForkliftFinder() {
             if (prod.specs.portata) specsHtml += `<li>Portata: <strong>${prod.specs.portata}</strong></li>`;
             if (prod.specs.altezza) specsHtml += `<li>Sollevamento: <strong>${prod.specs.altezza}</strong></li>`;
 
+            // Resolve image path
+            let resolvedImage = prod.image;
+            if (resolvedImage && !resolvedImage.startsWith('http') && !resolvedImage.startsWith('/')) {
+                resolvedImage = pathPrefix + '/' + resolvedImage;
+            } else if (resolvedImage && resolvedImage.startsWith('/') && !resolvedImage.startsWith(pathPrefix + '/')) {
+                resolvedImage = pathPrefix + resolvedImage;
+            }
+
+            // Resolve link path
+            let resolvedLink = prod.link || '#contatti';
+            if (resolvedLink.startsWith('/') && !resolvedLink.startsWith(pathPrefix + '/') && !resolvedLink.startsWith('//')) {
+                resolvedLink = pathPrefix + resolvedLink;
+            }
+
             card.innerHTML = `
                 <div class="product-img">
                     <span class="product-tag ${prod.tagClass}">${prod.tag}</span>
-                    <img src="${prod.image}" alt="${prod.name}" width="300" height="200" loading="lazy">
+                    <img src="${resolvedImage}" alt="${prod.name}" width="300" height="200" loading="lazy">
                 </div>
                 <div class="product-info">
                     <span class="product-brand">${prod.brand}</span>
@@ -820,7 +940,7 @@ function initForkliftFinder() {
                             <span class="product-price-label">Soluzione Consigliata</span>
                             <div class="product-price">${prod.price}</div>
                         </div>
-                        <a href="${prod.link || '#contatti'}" class="product-btn" aria-label="Vedi dettagli per ${prod.name}">
+                        <a href="${resolvedLink}" class="product-btn" aria-label="Vedi dettagli per ${prod.name}">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                         </a>
                     </div>

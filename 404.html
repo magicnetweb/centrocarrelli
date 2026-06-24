@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<script>
+(function() {
+    if (window.location.hostname.includes('github.io')) {
+        var pathPrefix = '/centrocarrelli';
+        
+        function rewriteAttr(el, attr) {
+            var val = el.getAttribute(attr);
+            if (val && val.startsWith('/') && !val.startsWith(pathPrefix + '/') && !val.startsWith('//')) {
+                el.setAttribute(attr, pathPrefix + val);
+            }
+        }
+        
+        function processElement(el) {
+            if (el.tagName === 'LINK') {
+                rewriteAttr(el, 'href');
+            } else if (el.tagName === 'SCRIPT' || el.tagName === 'IMG' || el.tagName === 'IFRAME') {
+                rewriteAttr(el, 'src');
+            } else if (el.tagName === 'A') {
+                rewriteAttr(el, 'href');
+            }
+        }
+        
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        processElement(node);
+                        var children = node.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]');
+                        children.forEach(processElement);
+                    }
+                });
+            });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        
+        document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        });
+    }
+})();
+</script>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>404 – Pagina non trovata — Centro Carrelli Bologna</title>
+<meta content="La pagina che stai cercando non esiste o è stata spostata. Torna alla home di Centro Carrelli o esplora il nostro sito." name="description"/>
+<meta content="noindex, follow" name="robots"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css?v=1.5" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+        :root {
+            --color-orange: #C84E00;
+            --color-ink: #1A1A1A;
+            --color-body: #5C5B59;
+            --color-border: #E6E5E3;
+            --color-band: #F2F1EF;
+        }
+
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 24px 80px;
+            text-align: center;
+        }
+
+        .error-code {
+            font-family: 'Archivo', sans-serif;
+            font-size: 9rem;
+            font-weight: 900;
+            color: var(--color-orange);
+            letter-spacing: -8px;
+            line-height: 1;
+            margin-bottom: 0;
+            opacity: 0.15;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .error-content {
+            position: relative;
+            z-index: 1;
+            max-width: 560px;
+        }
+
+        .error-eyebrow {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--color-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .error-content h1 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            color: var(--color-ink);
+            margin-bottom: 20px;
+            border: none;
+            padding: 0;
+            display: block;
+        }
+
+        .error-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--color-body);
+            margin-bottom: 40px;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 64px;
+        }
+
+        .error-actions a.btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--color-orange);
+            color: #fff;
+            padding: 14px 32px;
+            font-family: 'Archivo', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 2px;
+            text-decoration: none;
+            transition: all 150ms ease-out;
+        }
+        .error-actions a.btn-primary:hover {
+            background: #A64000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(249,104,21,0.35);
+        }
+
+        .error-actions a.btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--color-ink);
+            padding: 13px 32px;
+            font-family: 'Archivo', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 2px;
+            border: 1px solid var(--color-border);
+            text-decoration: none;
+            transition: all 150ms ease-out;
+        }
+        .error-actions a.btn-secondary:hover {
+            border-color: var(--color-ink);
+            transform: translateY(-2px);
+        }
+
+        .error-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 24px;
+            border-top: 1px solid var(--color-border);
+            padding-top: 32px;
+        }
+
+        .error-links span {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--color-body);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .error-links a {
+            font-size: 0.9rem;
+            color: var(--color-body);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 100ms;
+        }
+        .error-links a:hover { color: var(--color-orange); }
+
+        @media (max-width: 768px) {
+            .error-code { font-size: 6rem; letter-spacing: -4px; }
+            .error-content h1 { font-size: 2.2rem; }
+            .error-actions { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+<div style="height:3px;background:var(--color-orange);position:fixed;top:0;left:0;width:100%;z-index:10000;"></div>
+<header class="nav-header" id="nav-header">
+<div class="nav-container">
+<a aria-label="Centro Carrelli" class="nav-logo" href="/">
+<img alt="Centro Carrelli" height="240" src="/assets/logo_centrocarrelli.png" style="height: 45px; width: auto;" width="901"/>
+</a>
+<button aria-controls="nav-menu" aria-expanded="false" aria-label="Apri menu" class="hamburger">
+<span></span><span></span><span></span>
+</button>
+<ul class="nav-menu" id="nav-menu">
+<li class="nav-item"><a href="/carrelli-frontali/">Carrelli Frontali</a></li>
+<li class="nav-item"><a href="/carrelli-magazzino/">Carrelli Magazzino</a></li>
+<li class="nav-item"><a href="/transpallet/">Transpallet</a></li>
+<li class="nav-item"><a href="/occasioni/">Occasioni</a></li>
+<li class="nav-item"><a href="/noleggio-carrelli-elevatori/">Noleggio</a></li>
+<li class="nav-item"><a href="/azienda/">Azienda</a></li>
+<li class="nav-item"><a href="/assistenza-manutenzione-muletti/">Assistenza</a></li>
+<li class="nav-item"><a href="/contatti/">Contatti</a></li>
+<li class="nav-cta"><a class="btn btn-primary" href="/contatti/">Richiedi Preventivo</a></li>
+</ul>
+</div>
+</header>
+<main id="main-content">
+<div class="error-page">
+<div class="error-code">404</div>
+<div class="error-content">
+<span class="error-eyebrow">Errore 404</span>
+<h1>Pagina non trovata</h1>
+<p>La pagina che stai cercando non esiste, è stata spostata o l'indirizzo è errato. Torna alla home o esplora le nostre sezioni.</p>
+<div class="error-actions">
+<a class="btn-primary" href="/">
+<i data-lucide="home" style="width:16px;height:16px;"></i>
+                    Torna alla Home
+                </a>
+<a class="btn-secondary" href="/contatti/">
+<i data-lucide="phone" style="width:16px;height:16px;"></i>
+                    Contattaci
+                </a>
+</div>
+<div class="error-links">
+<span>Oppure vai direttamente a:</span>
+<a href="/carrelli-frontali/">Carrelli Frontali</a>
+<a href="/carrelli-magazzino/">Carrelli Magazzino</a>
+<a href="/transpallet/">Transpallet</a>
+<a href="/occasioni/">Occasioni</a>
+<a href="/noleggio-carrelli-elevatori/">Noleggio</a>
+<a href="/assistenza-manutenzione-muletti/">Assistenza</a>
+<a href="/azienda/">Azienda</a>
+</div>
+</div>
+</div>
+</main>
+<footer class="footer-bottom">
+<div class="footer-container">
+<p>© 2026 Centro Carrelli S.r.l. - Via R. Viganò 10, Bentivoglio (BO) - P.IVA 01234567890. Concessionario STILL Ufficiale.</p>
+<ul class="footer-links" style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
+<li><a href="/news/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">News</a></li>
+<li><a href="/newsletter/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Newsletter</a></li>
+<li><a href="/privacy-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Privacy</a></li>
+<li><a href="/mappa-sito/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Mappa sito</a></li>
+<li><a href="/cookie-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Cookie</a></li>
+<li><a href="/contatti/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Contatti</a></li>
+<li><a href="/lavora-con-noi/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Lavora con noi</a></li>
+</ul>
+</div>
+</footer>
+<script>
+        if (typeof lucide !== 'undefined') { lucide.createIcons(); };
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        window.addEventListener('scroll', function() {
+            document.querySelector('.nav-header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+</body>
+</html>

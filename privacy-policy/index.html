@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<script>
+(function() {
+    if (window.location.hostname.includes('github.io')) {
+        var pathPrefix = '/centrocarrelli';
+        
+        function rewriteAttr(el, attr) {
+            var val = el.getAttribute(attr);
+            if (val && val.startsWith('/') && !val.startsWith(pathPrefix + '/') && !val.startsWith('//')) {
+                el.setAttribute(attr, pathPrefix + val);
+            }
+        }
+        
+        function processElement(el) {
+            if (el.tagName === 'LINK') {
+                rewriteAttr(el, 'href');
+            } else if (el.tagName === 'SCRIPT' || el.tagName === 'IMG' || el.tagName === 'IFRAME') {
+                rewriteAttr(el, 'src');
+            } else if (el.tagName === 'A') {
+                rewriteAttr(el, 'href');
+            }
+        }
+        
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        processElement(node);
+                        var children = node.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]');
+                        children.forEach(processElement);
+                    }
+                });
+            });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        
+        document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('link[href^="/"], script[src^="/"], img[src^="/"], iframe[src^="/"], a[href^="/"]').forEach(processElement);
+        });
+    }
+})();
+</script>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Privacy Policy — Centro Carrelli Bologna</title>
+<meta content="Informativa sulla privacy e il trattamento dei dati personali di Centro Carrelli S.r.l. ai sensi del GDPR." name="description"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css?v=1.5" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+        :root { --color-orange:#C84E00; --color-ink:#1A1A1A; --color-body:#5C5B59; --color-border:#E6E5E3; --color-band:#F2F1EF; }
+        .page-intro { padding:140px 24px 60px; max-width:820px; margin:0 auto; }
+        .page-intro .breadcrumb { font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:var(--color-orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:32px; }
+        .page-intro h1 { font-family:'Archivo',sans-serif; font-size:3.2rem; font-weight:900; letter-spacing:-2px; line-height:1.05; color:var(--color-ink); margin-bottom:28px; border:none; padding:0; display:block; }
+        .page-intro .lead { font-size:1.25rem; line-height:1.7; color:var(--color-body); border-left:3px solid var(--color-orange); padding-left:20px; }
+
+        .legal-content { max-width:720px; margin:0 auto; padding:0 24px 80px; }
+        .legal-content h2 {
+            font-family:'Archivo',sans-serif; font-size:1.3rem; font-weight:800;
+            color:var(--color-ink); margin-top:40px; margin-bottom:16px;
+            padding-top:24px; border-top:1px solid var(--color-border);
+        }
+        .legal-content h2:first-child { border:none; padding-top:0; margin-top:0; }
+        .legal-content p { font-size:0.95rem; line-height:1.8; color:var(--color-body); margin-bottom:16px; }
+        .legal-content strong { color:var(--color-ink); }
+        .legal-content a { color:var(--color-orange); text-decoration:underline; }
+        .legal-content a:hover { color:#A64000; }
+
+        @media (max-width:768px) { .page-intro h1 { font-size:2.2rem; } }
+    </style>
+</head>
+<body>
+<div style="height:3px;background:var(--color-orange);position:fixed;top:0;left:0;width:100%;z-index:10000;"></div>
+<header class="nav-header" id="nav-header">
+<div class="nav-container">
+<a aria-label="Centro Carrelli" class="nav-logo" href="/"><img alt="Centro Carrelli" height="240" src="/assets/logo_centrocarrelli.png" style="height: 45px;width:auto;" width="901"/></a>
+<button aria-controls="nav-menu" aria-expanded="false" aria-label="Apri menu" class="hamburger"><span></span><span></span><span></span></button>
+<ul class="nav-menu" id="nav-menu">
+<li class="nav-item"><a href="/carrelli-frontali/">Carrelli Frontali</a></li>
+<li class="nav-item"><a href="/carrelli-magazzino/">Carrelli Magazzino</a></li>
+<li class="nav-item"><a href="/transpallet/">Transpallet</a></li>
+<li class="nav-item"><a href="/occasioni/">Occasioni</a></li>
+<li class="nav-item"><a href="/noleggio-carrelli-elevatori/">Noleggio</a></li>
+<li class="nav-item"><a href="/azienda/">Azienda</a></li>
+<li class="nav-item"><a href="/assistenza-manutenzione-muletti/">Assistenza</a></li>
+<li class="nav-item"><a href="/contatti/">Contatti</a></li>
+<li class="nav-cta"><a class="btn btn-primary" href="/contatti/">Richiedi Preventivo</a></li>
+</ul>
+</div>
+</header>
+<main id="main-content">
+<div class="page-intro">
+<div class="breadcrumb">Privacy Policy</div>
+<h1>Privacy Policy</h1>
+<p class="lead">Le modalità di trattamento dati personali ai sensi del Regolamento UE n. 679/2016 (GDPR).</p>
+</div>
+<div class="legal-content">
+<p>Questa pagina descrive le modalità di gestione del sito <a href="">www.centrocarrelli.net</a> con riferimento al <strong>trattamento</strong> dei <strong>dati personali</strong> degli <strong>utenti</strong> che lo consultano e contiene l'informativa ex art. 13 del Regolamento UE n. 679/2016 (nel prosieguo anche "<strong>GDPR</strong>") per chi interagisce con i <strong>servizi web</strong> di <strong>Centro Carrelli s.r.l. con sede a Bentivoglio Bologna, via Viganò n. 10.</strong></p>
+<p>A tali servizi si può accedere online a cominciare dall'indirizzo <a href="">www.centrocarrelli.net</a> che costituisce la homepage del sito ufficiale della società.</p>
+<p>L'informativa è resa soltanto per il sito <a href="">www.centrocarrelli.net</a> e non vale per altri siti web consultati dagli utenti.</p>
+<p><strong>Dato personale.</strong> Per «dato personale» si intende qualsiasi informazione riguardante una persona fisica identificata o identificabile («interessato») (cfr. art. 4 n. 1 del GDPR).</p>
+<p><strong>Trattamento.</strong> Per "trattamento" si intende qualsiasi operazione o insieme di operazioni, compiute con o senza l'ausilio di processi automatizzati e applicate a dati personali o insiemi di dati personali, come la raccolta, la registrazione, l'organizzazione, la strutturazione, la conservazione, l'adattamento o la modifica, l'estrazione, la consultazione, l'uso, la comunicazione mediante trasmissione, diffusione o qualsiasi altra forma di messa a disposizione, il raffronto o l'interconnessione, la limitazione, la cancellazione o la distruzione (art. 4 n. 2 del GDPR).</p>
+<h2>Titolare del trattamento</h2>
+<p>Il titolare del trattamento dei dati è <strong>Centro Carrelli s.r.l.</strong> con sede a Bentivoglio (BO), via Viganò n. 10, C.F. e P.IVA 01714321203, in persona del Presidente del Consiglio di Amministrazione e legale rappresentante Beghi Isabella, tel. 051.860066 – fax 051.860007, R.E.A. 365712 e-mail <a href="mailto:info@centrocarrelli.net">info@centrocarrelli.net</a>.</p>
+<p>L'e-mail di contatto del titolare è la seguente: <a href="mailto:info@centrocarrelli.net">info@centrocarrelli.net</a>.</p>
+<h2>Tipologia e raccolta dei dati, finalità e base giuridica del trattamento, cookies</h2>
+<p><strong>Tipologia di dati trattati.</strong> I dati raccolti e trattati da Centro Carrelli S.r.l. sono dati personali di tipo comune.</p>
+<p><strong>Dati di navigazione.</strong> I sistemi informatici e le procedure software preposte al funzionamento di questo sito web acquisiscono, nel corso del loro normale esercizio, alcuni dati personali la cui trasmissione è implicita nell'uso dei protocolli di comunicazione di Internet.</p>
+<p>Si tratta di informazioni che non sono raccolte per essere associate a interessati identificati, ma che per loro stessa natura potrebbero, attraverso elaborazioni ed associazioni con dati detenuti da terzi, permettere di identificare gli utenti. In questa categoria di dati rientrano gli indirizzi IP o i nomi a dominio dei computer utilizzati dagli utenti che si connettono al sito, gli indirizzi in notazione URI (Uniform Resource Identifier) delle risorse richieste, l'orario della richiesta, il metodo utilizzato nel sottoporre la richiesta al server, la dimensione del file ottenuto in risposta, il codice numerico indicante lo stato della risposta data dal server (buon fine, errore, ecc.) ed altri parametri relativi al sistema operativo e all'ambiente informatico dell'utente.</p>
+<p>Questi dati vengono utilizzati al solo fine di ricavare informazioni statistiche anonime sull'uso del sito e per controllarne il corretto funzionamento e vengono cancellati immediatamente dopo l'elaborazione.</p>
+<p><strong>Raccolta dei dati.</strong> I dati personali potranno essere raccolti sul sito <a href="">www.centrocarrelli.net</a> tramite le seguenti due modalità:</p>
+<p>a) nella homepage del sito gli utenti potranno iscriversi alla newsletter digitando all'interno della relativa stringa il loro indirizzo di posta elettronica;<br/>
+        b) dalla homepage cliccando sul link "CONTATTI" ciascun utente potrà compilare un form in cui inserire il proprio nome, la propria e-mail e un messaggio di testo.</p>
+<p><strong>Finalità del trattamento.</strong> Nel caso sub a) la finalità del trattamento consiste nell'invio periodico all'utente delle news riguardanti la Centro Carrelli; nel caso sub b) la finalità del trattamento è quella di avere informazioni riguardo ai carrelli visibili sul sito.</p>
+<p><strong>Base giuridica del trattamento.</strong> Il trattamento dei dati per la finalità suindicata è effettuato in base al consenso di cui all'art. 6, prgf. 1°, lett. a) del GDPR e in base all'art. 6, prgf. 1°, lett. f) in forza dei legittimi interessi della società legati alla tipologia di attività svolta e alla necessità di riscontrare le richieste informative degli interessati.</p>
+<p><strong>Cookies.</strong> Per i cookies e per il loro funzionamento si invitano gli utenti a prendere visione dell'apposita informativa presente sul sito al link "<a href="/cookie-policy/">Utilizzo dei cookie</a>".</p>
+<h2>Periodo di conservazione dei dati</h2>
+<p>I dati personali saranno trattati con strumenti automatizzati in grado di garantire la massima sicurezza e riservatezza possibili e per il tempo strettamente necessario a perseguire le finalità per cui sono stati raccolti.</p>
+<h2>Diritti degli interessati</h2>
+<p><strong>Accesso, rettifica, cancellazione dei dati; limitazione e opposizione al trattamento.</strong> I soggetti cui si riferiscono i dati personali (interessati) hanno diritto in qualunque momento di chiedere al Titolare: l'accesso ai propri dati personali (art. 15 del GDPR), la rettifica (art. 16 del GDPR) o la cancellazione degli stessi (art. 17 del GDPR), o la limitazione del trattamento (art. 18 del GDPR) o di opporsi al loro trattamento (art. 21 del GDPR).</p>
+<p><strong>Portabilità dei dati.</strong> Gli interessati hanno inoltre il diritto alla portabilità dei dati (art. 20 del GDPR).</p>
+<p><strong>Revoca del consenso.</strong> Qualora il trattamento sia basato sul consenso [v. art. 6, prgf. 1, lett. a)] ciascun interessato ha il diritto di revocare tale consenso in qualsiasi momento senza pregiudicare la liceità del trattamento basata sul consenso prestato prima della revoca.</p>
+<p>Per l'esercizio di tutti i diritti sopra menzionati e per non ricevere più comunicazioni e/o news da parte di Centro Carrelli potrà essere inviata una semplice e-mail all'indirizzo <a href="mailto:info@centrocarrelli.net">info@centrocarrelli.net</a>.</p>
+<p><strong>Diritto di proporre reclamo.</strong> Gli interessati hanno diritto di proporre reclamo a un'autorità di controllo.</p>
+<h2>Comunicazione dei dati personali</h2>
+<p>Il conferimento dei dati per le finalità indicate ha carattere facoltativo e non necessario. Il rifiuto di fornire tali dati comporta l'impossibilità di usufruire del relativo servizio.</p>
+<p><strong>Processo decisionale automatizzato.</strong> Non esiste un processo decisionale automatizzato.</p>
+<h2>Modifiche alla privacy policy</h2>
+<p>Il titolare si riserva il diritto di modificare, aggiornare, aggiungere o rimuovere parti della presente informativa sulla privacy a propria discrezione e in qualsiasi momento.</p>
+<p>L'interessato è tenuto a verificare periodicamente le eventuali modifiche. Al fine di facilitare tale verifica l'informativa conterrà l'indicazione della data di aggiornamento.</p>
+<p>L'utilizzo del sito, dopo la pubblicazione delle modifiche, costituirà accettazione delle stesse.</p>
+<p><strong>Data aggiornamento: 25 maggio 2018.</strong></p>
+</div>
+</main>
+<footer class="footer-bottom">
+<div class="footer-container">
+<p>© 2026 Centro Carrelli S.r.l. - Via R. Viganò 10, Bentivoglio (BO) - P.IVA 01234567890. Concessionario STILL Ufficiale.</p>
+<ul class="footer-links" style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
+<li><a href="/news/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">News</a></li>
+<li><a href="/newsletter/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Newsletter</a></li>
+<li><a href="/privacy-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Privacy</a></li>
+<li><a href="/mappa-sito/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Mappa sito</a></li>
+<li><a href="/cookie-policy/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Cookie</a></li>
+<li><a href="/contatti/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Contatti</a></li>
+<li><a href="/lavora-con-noi/" style="color: rgba(255, 255, 255, 0.85) !important; text-decoration: none; font-weight: 500; font-size: 0.82rem; transition: color 0.15s ease;">Lavora con noi</a></li>
+</ul>
+</div>
+</footer>
+<script>
+        if (typeof lucide !== 'undefined') { lucide.createIcons(); };
+        document.querySelector('.hamburger').addEventListener('click',function(){this.classList.toggle('active');document.querySelector('.nav-menu').classList.toggle('active');});
+        window.addEventListener('scroll',function(){document.querySelector('.nav-header').classList.toggle('scrolled',window.scrollY>50);});
+    </script>
+</body>
+</html>
