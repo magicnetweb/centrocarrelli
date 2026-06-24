@@ -1,6 +1,6 @@
 
 /* ==========================================================================
-   CENTRO CARRELLI - STILL INSPIRED INTERACTIVE LOGIC (2026)
+   CENTRO CARRELLI - STILL INSPIRED INTERACTIVE LOGIC (2026.1)
    ========================================================================== */
 
 // Entry point
